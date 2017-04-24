@@ -1,9 +1,9 @@
 
 
-# Lunchland app with Angular2, AngularFire2, and Firebase SDK 3
+# Lunches app
 A simple app for ordering lunches example built with **Angular2** and **AngularFire2**. The app features a **Firebase** backend with **OAuth** authentication. Try the demo at <a href="https://lanchland.firebaseapp.com" target="_blank">lanchland.firebaseapp.com</a>.
 
-- Angular2 `2.2.0`
+- Angular2 `2.4.1`
 - AngularFire2 `2.0.0-beta.5`
 - Firebase SDK 3
   - JSON Datastore
