@@ -5,6 +5,8 @@ import '@angular/forms';
 import '@angular/platform-browser-dynamic';
 import '@angular/router';
 import '@angular/http';
+import '@angular/animations';
+import 'hammerjs';
 
 // RxJS
 import 'rxjs/add/observable/merge';

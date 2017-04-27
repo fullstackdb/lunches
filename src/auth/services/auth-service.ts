@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState, AngularFire } from 'angularfire2';
 
 
 @Injectable()
 export class AuthService {
   private authState: FirebaseAuthState = null;
 
-  constructor(public auth$: FirebaseAuth) {
+  constructor(public auth$: FirebaseAuth, public af: AngularFire) {
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });
@@ -33,20 +33,11 @@ export class AuthService {
       .catch(error => console.log('ERROR @ AuthService#signInAnonymously() :', error));
   }
 
-  signInWithGithub(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Github);
-  }
-
-  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Google);
-  }
-
-  signInWithTwitter(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Twitter);
-  }
-
-  signInWithFacebook(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Facebook);
+  signUp(email: string, password: string): firebase.Promise<FirebaseAuthState> {
+      return this.af.auth.createUser({
+        email: email,
+        password: password
+      })
   }
 
   signOut(): void {

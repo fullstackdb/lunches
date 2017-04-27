@@ -8,21 +8,22 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
     require('./app-header.scss')
   ],
   template: `
-    <header class="header">
-      <div class="g-row">
-        <div class="g-col">
-          <h1 class="header__title">Lunchland Angular2 Firebase</h1>
-    
-          <ul class="header__links">
-            <li *ngIf="authenticated"><a class="header__link" (click)="signOut.emit()" href="#">Sign out</a></li>
-          </ul>
-        </div>
-      </div>
-    </header>
+    <md-menu #appMenu="mdMenu">
+      <button md-menu-item> Settings </button>
+      <button md-menu-item (click)="logout()"> Sign out </button>
+    </md-menu>
+
+    <button md-icon-button [mdMenuTriggerFor]="appMenu">
+      <md-icon>more_vert</md-icon>
+    </button>
   `
 })
 
 export class AppHeaderComponent {
   @Input() authenticated: boolean;
   @Output() signOut = new EventEmitter(false);
+
+  logout(): void {
+    this.signOut.emit();
+  }
 }

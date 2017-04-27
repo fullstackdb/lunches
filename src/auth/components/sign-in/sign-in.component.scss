@@ -1,0 +1,31 @@
+@import
+"~minx/src/settings",
+"~minx/src/functions",
+"~minx/src/mixins";
+
+.sign-in {
+    &__form {
+        width: 500px;
+        margin: 0 auto;
+        text-align: center;
+        &_item {
+            margin: 0 25px;
+        }
+    }
+    &__email, &__password {
+        &_help {
+            font-size: 0.7em;
+            margin-left: 5px;
+            color: red;
+        }
+    }
+    &__register {
+        font-size: 0.7em;
+        &_link {
+            margin-left: 5px;
+        }
+    }
+    &__description {
+        font-size: 0.7em;
+    }
+}

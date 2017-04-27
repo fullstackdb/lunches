@@ -1,0 +1,64 @@
+<section class="sign-up">
+    <md-grid-list cols="1" rowHeight="fit">
+        <md-grid-tile>
+                <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+            
+            <md-toolbar color="white" class="sign-in__form">
+                    <md-toolbar-row class="content-center">
+                        <div class="sign-in__title">
+                            <h1>Registration</h1>
+                        </div> 
+                    </md-toolbar-row>
+                    <md-toolbar-row class="content-center">
+                        <div class="sign-in__description">
+                            <p>Please enter your email, name and password below</p>
+                        </div> 
+                    </md-toolbar-row>
+                    <md-toolbar-row class="sign-in__form_item">
+                        <md-input-container>
+                            <input #name mdInput
+                                        type="name" 
+                                        placeholder="Name">
+                        </md-input-container>
+                        <div class="sign-in__name_help" *ngIf="!isNameValid(name.value)">
+                            Please fill it
+                        </div>
+                    </md-toolbar-row>
+                    <md-toolbar-row class="sign-in__form_item">
+                        <md-input-container>
+                            <input #email mdInput 
+                                        (ngModel)="email"
+                                        type="email"  
+                                        name="email"
+                                        placeholder="Email">
+                        </md-input-container>
+                        <div class="sign-in__email_help" *ngIf="!isEmailValid(email.value)">
+                            Please fill it with LvivIT! email
+                        </div>
+                    </md-toolbar-row>
+
+                    <md-toolbar-row class="sign-in__form_item">
+                        <md-input-container>
+                            <input  #password mdInput 
+                                        (ngModel)="password"
+                                        type="password" 
+                                        name="password"
+                                        placeholder="Password">
+                        </md-input-container>
+                        <div class="sign-in__password_help" *ngIf="!isPasswordValid(password.value)">
+                            Password should consist of <br> 4 symbols at least
+                        </div>
+                    </md-toolbar-row>
+
+                    <md-toolbar-row class="content-center">
+                        <button md-raised-button 
+                                type="submit" 
+                                [disabled]="!formData.valid" >
+                                Register me
+                        </button>
+                    </md-toolbar-row>   
+            </md-toolbar>
+                </form>            
+        </md-grid-tile>
+    </md-grid-list>
+</section>
