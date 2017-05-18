@@ -12,30 +12,33 @@ import { TasksComponent } from './components/tasks';
 import { AutoFocusDirective } from './directives/autofocus-directive';
 import { TaskService } from './services/task-service';
 
-
 const routes: Routes = [
-  {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]}
+    {
+        path       : 'tasks',
+        component  : TasksComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
-
 @NgModule({
-  declarations: [
-    AutoFocusDirective,
-    TaskFormComponent,
-    TaskItemComponent,
-    TaskListComponent,
-    TasksComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild(routes)
-  ],
-  providers: [
-    TaskService
-  ]
+    declarations: [
+        AutoFocusDirective,
+        TaskFormComponent,
+        TaskItemComponent,
+        TaskListComponent,
+        TasksComponent
+    ],
+    imports     : [
+        CommonModule,
+        FormsModule,
+        RouterModule.forChild(routes)
+    ],
+    providers   : [
+        TaskService
+    ]
 })
 
-export class TasksModule {}
+export class DashboardModule {
+}
 
 export { TaskService };

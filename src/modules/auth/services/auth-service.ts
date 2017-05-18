@@ -20,8 +20,13 @@ export class AuthService {
     return this.authenticated ? this.authState.uid : '';
   }
 
-  signIn(provider: number): firebase.Promise<FirebaseAuthState> {
-    return this.auth$.login({provider})
+  signIn(email: string, password: string): firebase.Promise<FirebaseAuthState> {
+    return this.auth$.login(
+      { email, password },
+      {
+        provider: AuthProviders.Password,
+        method: AuthMethods.Password
+    })
       .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
   }
 
