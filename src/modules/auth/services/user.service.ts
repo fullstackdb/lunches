@@ -1,51 +1,19 @@
 import { Injectable } from '@angular/core';
-import { AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState, AngularFire } from 'angularfire2';
-
+import { User } from '../models/user.model';
 
 @Injectable()
-export class AuthService {
-  private authState: FirebaseAuthState = null;
+export class UserService {
+    private _user: User = null;
 
-  constructor(public auth$: FirebaseAuth, public af: AngularFire) {
-    auth$.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
-    });
-  }
+    set user(user: User) {
+        this._user = user;
+    }
 
-  get authenticated(): boolean {
-    return this.authState !== null;
-  }
+    get user(): User {
+        return this._user;
+    }
 
-  get id(): string {
-    return this.authenticated ? this.authState.uid : '';
-  }
+    constructor() {
+    }
 
-  signIn(email: string, password: string): firebase.Promise<FirebaseAuthState> {
-    return this.auth$.login(
-      { email, password },
-      {
-        provider: AuthProviders.Password,
-        method: AuthMethods.Password
-    })
-      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
-  }
-
-  signInAnonymously(): firebase.Promise<FirebaseAuthState> {
-    return this.auth$.login({
-      provider: AuthProviders.Anonymous,
-      method: AuthMethods.Anonymous
-    })
-      .catch(error => console.log('ERROR @ AuthService#signInAnonymously() :', error));
-  }
-
-  signUp(email: string, password: string): firebase.Promise<FirebaseAuthState> {
-      return this.af.auth.createUser({
-        email: email,
-        password: password
-      })
-  }
-
-  signOut(): void {
-    this.auth$.logout();
-  }
 }

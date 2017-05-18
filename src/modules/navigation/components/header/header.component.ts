@@ -7,7 +7,6 @@ import { ChangeDetectionStrategy, Component} from '@angular/core';
   styles: [require('./header.component.scss')],
   template: require('./header.component.html')
 })
-
 export class HeaderComponent {
   title: string = 'HeaderComponent';
 }

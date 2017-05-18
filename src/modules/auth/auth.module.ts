@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MdCheckboxModule,
@@ -14,8 +13,7 @@ import { SignInComponent, SignUpComponent } from './components/index';
 import { AuthGuard } from './guards/auth-guard';
 import { UnauthGuard } from './guards/unauth-guard';
 import { AuthService } from './services/auth-service';
-import { ROUTES } from './auth.module.router';
-
+import { AuthRoutingModule } from './auth.module.router';
 
 const MATERIAL_MODULES = [
     MdCheckboxModule,
@@ -31,11 +29,14 @@ const MATERIAL_MODULES = [
         SignUpComponent
     ],
     imports     : [
+        AuthRoutingModule,
         CommonModule,
-        RouterModule.forChild(ROUTES),
         FormsModule,
         ReactiveFormsModule,
         ...MATERIAL_MODULES
+    ],
+    exports     : [
+        AuthRoutingModule
     ],
     providers   : [
         AuthGuard,

@@ -1,22 +1,25 @@
-import { Routes } from '@angular/router';
-import { UnauthGuard } from './guards/unauth-guard';
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { SignInComponent, SignUpComponent } from './components/index';
 
-export const ROUTES: Routes = [
+
+const authRoutes: Routes = [
     {
-        path      : '',
-        redirectTo: 'login',
-        pathMatch : 'full'
+        path: 'login',
+        component: SignInComponent
     },
     {
-        path       : 'login',
-        component  : SignInComponent,
-        canActivate: [UnauthGuard]
-    },
-    {
-        path       : 'register',
-        component  : SignUpComponent,
-        canActivate: [UnauthGuard]
+        path: 'register',
+        component: SignUpComponent
     }
 ];
+@NgModule({
+    imports: [
+        RouterModule.forChild(authRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class AuthRoutingModule { }

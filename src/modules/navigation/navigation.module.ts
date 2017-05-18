@@ -11,6 +11,9 @@ import { HeaderComponent } from './components/index';
     imports     : [
         CommonModule,
         FormsModule
+    ],
+    exports: [
+        HeaderComponent
     ]
 })
 export class NavigationModule {

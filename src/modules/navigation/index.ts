@@ -1,3 +1,1 @@
-/**
- * Created by artem-job on 17.05.17.
- */
+export * from './navigation.module';

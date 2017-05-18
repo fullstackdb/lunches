@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../modules/auth';
 
 
 @Component({
@@ -15,9 +14,5 @@ import { AuthService } from '../../modules/auth';
 })
 
 export class AppComponent {
-  constructor(private auth: AuthService) {}
-
-  signOut(): void {
-    this.auth.signOut();
-  }
+  constructor() {}
 }

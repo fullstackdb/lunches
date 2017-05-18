@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ROUTES } from './app.router';
 import { AppComponent } from './components/app.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 
-import { AuthModule } from '../modules/auth';
-import { FirebaseModule } from '../modules/firebase';
-import { DashboardModule } from '../modules/dashboard';
-import { NavigationModule } from '../modules/navigation/index';
-
-
+import { AuthModule } from './modules/auth';
+import { FirebaseModule } from './modules/firebase';
+import { DashboardModule } from './modules/dashboard';
+import { NavigationModule } from './modules/navigation/navigation.module';
+import { AppRoutingModule } from 'src/app.router';
 
 @NgModule({
     bootstrap   : [
@@ -25,12 +23,19 @@ import { NavigationModule } from '../modules/navigation/index';
     imports     : [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot(ROUTES, {useHash: false}),
         AuthModule,
         FirebaseModule,
         NavigationModule,
-        DashboardModule
-    ]
+        //DashboardModule
+        AppRoutingModule
+    ],
+    providers: [
+        {
+            provide: APP_BASE_HREF,
+            useValue: '/'
+        },
+
+    ],
 })
 
 export class AppModule {

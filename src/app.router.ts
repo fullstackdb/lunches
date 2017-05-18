@@ -1,19 +1,45 @@
-import { Routes } from '@angular/router';
+import { NgModule }     from '@angular/core';
+import {
+    RouterModule,
+    Routes
+} from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
+//import { UnauthGuard } from './modules/auth/guards/unauth-guard';
 
-
-export const ROUTES: Routes = [
+const appRoutes: Routes = [
     {
-        path       : '',
-        component  : HomePageComponent,
+        path      : '',
+        redirectTo: '/home',
         pathMatch : 'full'
     },
     {
-        path: 'login',
-        loadChildren: '../auth/auth.module#DashboardModule'
+        path     : 'home',
+        component: HomePageComponent
     },
     {
-        path: 'dashboard',
-        loadChildren: '../dashboard/dashboard.module#DashboardModule'
-    }
+        path        : 'user',
+        loadChildren: 'modules/auth/auth.module#AuthModule',
+        //canActivate: [UnauthGuard]
+    },
+    //{
+    //    path        : 'dashboard',
+    //    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
+    //}
 ];
+
+
+@NgModule({
+    imports: [
+        RouterModule.forRoot(
+            appRoutes
+        )
+    ],
+    exports: [
+        RouterModule
+    ],
+    //providers: [
+    //    UnauthGuard
+    //]
+})
+export class AppRoutingModule {
+}

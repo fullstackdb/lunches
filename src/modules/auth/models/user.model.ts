@@ -1,3 +1,4 @@
-/**
- * Created by artem-job on 17.05.17.
- */
+export class User {
+    id: number;
+    email: string;
+}
