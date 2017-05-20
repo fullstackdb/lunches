@@ -21,21 +21,20 @@ import { AppRoutingModule } from 'src/app.router';
         HomePageComponent
     ],
     imports     : [
+        AppRoutingModule,
         BrowserModule,
         BrowserAnimationsModule,
         AuthModule,
         FirebaseModule,
         NavigationModule,
-        //DashboardModule
-        AppRoutingModule
+        DashboardModule
     ],
     providers: [
         {
             provide: APP_BASE_HREF,
             useValue: '/'
-        },
-
-    ],
+        }
+    ]
 })
 
 export class AppModule {
