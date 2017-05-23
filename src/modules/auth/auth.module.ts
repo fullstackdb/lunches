@@ -23,10 +23,14 @@ const MATERIAL_MODULES = [
     MdIconModule
 ];
 
+const COMPONENTS = [
+    SignInComponent,
+    SignUpComponent
+];
+
 @NgModule({
     declarations: [
-        SignInComponent,
-        SignUpComponent
+        ...COMPONENTS
     ],
     imports     : [
         AuthRoutingModule,
@@ -36,7 +40,8 @@ const MATERIAL_MODULES = [
         ...MATERIAL_MODULES
     ],
     exports     : [
-        AuthRoutingModule
+        AuthRoutingModule,
+        ...COMPONENTS
     ],
     providers   : [
         AuthGuard,

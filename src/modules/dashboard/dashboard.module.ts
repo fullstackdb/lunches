@@ -2,21 +2,29 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { TaskFormComponent } from './components/task-form';
-import { TaskItemComponent } from './components/task-item';
-import { TaskListComponent } from './components/task-list';
-import { TasksComponent } from './components/tasks';
-import { AutoFocusDirective } from './directives/autofocus-directive';
-import { TaskService } from './services/task-service';
 import { DashboardRoutingModule } from './dashboard.module.router';
+import { LunchDashboardService } from './services/index';
+
+import {
+    LunchTableComponent,
+    DaysTableComponent,
+    LunchDayComponent
+} from './components/index';
+
+
+const COMPONENTS = [
+    LunchTableComponent,
+    DaysTableComponent,
+    LunchDayComponent
+];
+
+const SERVICES = [
+    LunchDashboardService
+];
 
 @NgModule({
     declarations: [
-        AutoFocusDirective,
-        TaskFormComponent,
-        TaskItemComponent,
-        TaskListComponent,
-        TasksComponent
+        ...COMPONENTS
     ],
     imports     : [
         DashboardRoutingModule,
@@ -27,7 +35,7 @@ import { DashboardRoutingModule } from './dashboard.module.router';
         DashboardRoutingModule
     ],
     providers   : [
-        TaskService
+        ...SERVICES
     ]
 })
 

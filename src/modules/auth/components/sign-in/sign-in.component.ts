@@ -15,16 +15,14 @@ export class SignInComponent {
     }
 
     signIn(email: string, password: string): void {
-        console.log('signIn', this.isFormValid(), this.isEmailValid, this.isPasswordValid);
         if (this.isFormValid()) {
-            console.log('signIn');
             this.auth.signIn(email, password)
                 .then(() => this.postSignIn());
         }
     }
 
     private postSignIn(): void {
-        console.log('loggined');
+        this.router.navigate(['/dashboard']);
     }
 
     private validateEmail(email: string): void {
