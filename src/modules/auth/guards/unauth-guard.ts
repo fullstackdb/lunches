@@ -16,7 +16,7 @@ export class UnauthGuard implements CanActivate {
       .take(1)
       .map(authState => !authState)
       .do(unauthenticated => {
-          this.router.navigate(['home']);
+        this.router.navigate([unauthenticated ? 'login' : 'dashboard']);
       });
   }
 }
