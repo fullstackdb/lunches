@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { NavigationModule } from '../navigation/navigation.module';
+import { AuthModule } from '../auth/auth.module';
+
 import { DashboardRoutingModule } from './dashboard.module.router';
 import { LunchDashboardService } from './services/index';
 
@@ -10,6 +13,7 @@ import {
     DaysTableComponent,
     LunchDayComponent
 } from './components/index';
+
 
 
 const COMPONENTS = [
@@ -27,6 +31,8 @@ const SERVICES = [
         ...COMPONENTS
     ],
     imports     : [
+        AuthModule,
+        NavigationModule,
         DashboardRoutingModule,
         CommonModule,
         FormsModule

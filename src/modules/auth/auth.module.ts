@@ -9,11 +9,16 @@ import {
     MdIconModule
 } from '@angular/material';
 
-import { SignInComponent, SignUpComponent } from './components/index';
+import {
+    SignInComponent,
+    SignUpComponent,
+    UserWidgetComponent
+} from './components/index';
 import { AuthGuard } from './guards/auth-guard';
 import { UnauthGuard } from './guards/unauth-guard';
 import { AuthService } from './services/auth-service';
 import { AuthRoutingModule } from './auth.module.router';
+import { UserService } from './services/user.service';
 
 const MATERIAL_MODULES = [
     MdCheckboxModule,
@@ -25,7 +30,15 @@ const MATERIAL_MODULES = [
 
 const COMPONENTS = [
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    UserWidgetComponent
+];
+
+const SERVICES = [
+    AuthGuard,
+    AuthService,
+    UnauthGuard,
+    UserService
 ];
 
 @NgModule({
@@ -44,9 +57,7 @@ const COMPONENTS = [
         ...COMPONENTS
     ],
     providers   : [
-        AuthGuard,
-        AuthService,
-        UnauthGuard
+        ...SERVICES
     ]
 })
 export class AuthModule {

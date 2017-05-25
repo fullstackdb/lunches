@@ -17,7 +17,10 @@ export class SignInComponent {
     signIn(email: string, password: string): void {
         if (this.isFormValid()) {
             this.auth.signIn(email, password)
-                .then(() => this.postSignIn());
+                .then((user: any) => {
+                    console.log('signIn', user);
+                    this.postSignIn();
+                });
         }
     }
 

@@ -1,0 +1,8 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  &__user-widget {
+    display: flex;
+    align-self: flex-end;
+  }
+}

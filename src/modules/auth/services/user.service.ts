@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { UserInfo } from 'firebase';
 
 @Injectable()
 export class UserService {
-    private _user: User = null;
+    private _user: UserInfo;
+    private activeUserSource = new ReplaySubject<UserInfo>(1);
 
-    set user(user: User) {
+    public ActiveUser$ = this.activeUserSource.asObservable();
+
+    set user(user: UserInfo) {
         this._user = user;
     }
 
-    get user(): User {
+    get user(): UserInfo {
         return this._user;
     }
 
-    constructor() {
+    setActiveUser(activeUser: UserInfo): void {
+        this.user = activeUser;
+        this.activeUserSource.next(activeUser);
     }
 
 }

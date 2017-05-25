@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MdIconModule, MdToolbarModule } from '@angular/material';
 
 import { AuthModule } from '../auth/auth.module';
 
 import { HeaderComponent } from './components/index';
 
+
+const MATERIAL_MODULES = [
+    MdToolbarModule,
+    MdIconModule
+];
 
 @NgModule({
     declarations: [
@@ -14,7 +20,8 @@ import { HeaderComponent } from './components/index';
     imports     : [
         CommonModule,
         FormsModule,
-        AuthModule
+        AuthModule,
+        ...MATERIAL_MODULES
     ],
     exports: [
         HeaderComponent
