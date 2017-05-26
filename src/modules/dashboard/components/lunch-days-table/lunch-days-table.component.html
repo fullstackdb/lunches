@@ -1,4 +1,5 @@
-<div>
-    Days Table
-</div>
-<lunch-day></lunch-day>
+<md-grid-list cols="5" rowHeight="100px">
+    <md-grid-tile *ngFor="let day of daysList">
+        <lunch-day [day]="day"></lunch-day>
+    </md-grid-tile>
+</md-grid-list>

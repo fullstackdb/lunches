@@ -15,7 +15,7 @@ import {
 
 export class DaysTableComponent {
     @Input() orderList: any;
-    @Input() daysList: any[];
+    @Input() daysList: any[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     @Output() orderCreated: EventEmitter<any> = new EventEmitter();
     @Output() orderUpdated: EventEmitter<any> = new EventEmitter();
 

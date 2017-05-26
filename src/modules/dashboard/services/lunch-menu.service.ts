@@ -5,9 +5,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth';
+import { ILunchMenuService } from '../models/services/lunch-menu.interface';
 
 @Injectable()
-export class LunchMenuService {
+export class LunchMenuService implements ILunchMenuService {
     private menu$: FirebaseListObservable<any[]>;
 
     constructor(private auth: AuthService,

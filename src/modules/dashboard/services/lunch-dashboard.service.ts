@@ -4,10 +4,12 @@ import 'rxjs/add/operator/switchMap';
 import { Injectable } from '@angular/core';
 import { AngularFire, AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
+
 import { AuthService } from '../../auth';
+import { ILunchDashboardService } from '../models/services/lunch-dashboard.interface';
 
 @Injectable()
-export class LunchDashboardService {
+export class LunchDashboardService implements ILunchDashboardService {
     private orderList$: FirebaseListObservable<any[]>;
 
     constructor(private af: AngularFire, auth: AuthService, db: AngularFireDatabase) {

@@ -15,7 +15,7 @@ import {
 
 export class LunchDayComponent {
     @Input() order: any;
-    @Input() day: any[];
+    @Input() day: any;
     @Output() orderCreated: EventEmitter<any> = new EventEmitter();
     @Output() orderUpdated: EventEmitter<any> = new EventEmitter();
 

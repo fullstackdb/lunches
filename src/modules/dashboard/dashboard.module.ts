@@ -2,10 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-    MdCheckboxModule,
     MdInputModule,
     MdButtonModule,
-    MdToolbarModule,
     MdIconModule,
     MdGridListModule
 } from '@angular/material';
@@ -29,10 +27,8 @@ import {
 } from './components/index';
 
 const MATERIAL_MODULES = [
-    MdCheckboxModule,
     MdInputModule,
     MdButtonModule,
-    MdToolbarModule,
     MdIconModule,
     MdGridListModule
 ];
