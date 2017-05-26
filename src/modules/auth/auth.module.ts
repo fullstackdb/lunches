@@ -6,7 +6,8 @@ import {
     MdInputModule,
     MdButtonModule,
     MdToolbarModule,
-    MdIconModule
+    MdIconModule,
+    MdGridListModule
 } from '@angular/material';
 
 import {
@@ -25,7 +26,8 @@ const MATERIAL_MODULES = [
     MdInputModule,
     MdButtonModule,
     MdToolbarModule,
-    MdIconModule
+    MdIconModule,
+    MdGridListModule
 ];
 
 const COMPONENTS = [

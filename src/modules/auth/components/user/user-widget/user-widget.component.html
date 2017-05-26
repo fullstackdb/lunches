@@ -1,5 +1,5 @@
 <section class="user-widget">
-    <md-list-item class="user-widget__info">
+    <div class="user-widget__info">
         <div class="user-widget__icon">
             <md-icon class="user-widget__icon_font">account_circle</md-icon>
         </div>
@@ -7,11 +7,11 @@
              *ngIf="user && user.email">
             {{user.email}}
         </div>
-    </md-list-item>
-    <md-list-item  class="user-widget__buttons">
+    </div>
+    <div  class="user-widget__buttons">
         <button md-raised-button
                 class="user-widget__logout">
             Logout
         </button>
-    </md-list-item>
+    </div>
 </section><!-- /.user-widget -->
