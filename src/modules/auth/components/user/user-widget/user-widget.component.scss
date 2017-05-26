@@ -1,0 +1,19 @@
+.user-widget {
+  display: flex;
+  &__info {
+    display: flex;
+  }
+  &__icon {
+    &_font {
+      font-size: 34px;
+      height: 34px;
+      width: 34px;
+    }
+  }
+  &__name {
+    margin: 5px 15px;
+  }
+  &__logout {
+    background: #FFB300;
+  }
+}

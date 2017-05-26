@@ -1,0 +1,17 @@
+<section class="user-widget">
+    <div class="user-widget__info">
+        <div class="user-widget__icon">
+            <md-icon class="user-widget__icon_font">account_circle</md-icon>
+        </div>
+        <div class="user-widget__name"
+             *ngIf="user && user.email">
+            {{user.email}}
+        </div>
+    </div>
+    <div  class="user-widget__buttons">
+        <button md-raised-button
+                class="user-widget__logout">
+            Logout
+        </button>
+    </div>
+</section><!-- /.user-widget -->

@@ -6,27 +6,46 @@ import {
     MdInputModule,
     MdButtonModule,
     MdToolbarModule,
-    MdIconModule
+    MdIconModule,
+    MdGridListModule
 } from '@angular/material';
 
-import { SignInComponent, SignUpComponent } from './components/index';
+import {
+    SignInComponent,
+    SignUpComponent,
+    UserWidgetComponent
+} from './components/index';
 import { AuthGuard } from './guards/auth-guard';
 import { UnauthGuard } from './guards/unauth-guard';
 import { AuthService } from './services/auth-service';
 import { AuthRoutingModule } from './auth.module.router';
+import { UserService } from './services/user.service';
 
 const MATERIAL_MODULES = [
     MdCheckboxModule,
     MdInputModule,
     MdButtonModule,
     MdToolbarModule,
-    MdIconModule
+    MdIconModule,
+    MdGridListModule
+];
+
+const COMPONENTS = [
+    SignInComponent,
+    SignUpComponent,
+    UserWidgetComponent
+];
+
+const SERVICES = [
+    AuthGuard,
+    AuthService,
+    UnauthGuard,
+    UserService
 ];
 
 @NgModule({
     declarations: [
-        SignInComponent,
-        SignUpComponent
+        ...COMPONENTS
     ],
     imports     : [
         AuthRoutingModule,
@@ -36,12 +55,11 @@ const MATERIAL_MODULES = [
         ...MATERIAL_MODULES
     ],
     exports     : [
-        AuthRoutingModule
+        AuthRoutingModule,
+        ...COMPONENTS
     ],
     providers   : [
-        AuthGuard,
-        AuthService,
-        UnauthGuard
+        ...SERVICES
     ]
 })
 export class AuthModule {

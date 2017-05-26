@@ -1,2 +1,2 @@
-export { TaskService } from './services/task-service';
+export { LunchDashboardService } from './services/lunch-dashboard.service';
 export { DashboardModule } from './dashboard.module';
