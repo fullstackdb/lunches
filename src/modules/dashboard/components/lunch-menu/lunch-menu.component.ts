@@ -7,6 +7,7 @@ import {
     LunchDashboardService,
     LunchMenuService
 } from '../../services/index';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'lunch-menu',
@@ -22,11 +23,17 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     updatedOrder: any;
 
     constructor(private lunchMenuService: LunchMenuService,
-                private lunchDashboardService: LunchDashboardService) {
+                private lunchDashboardService: LunchDashboardService,
+                private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.getMenu();
+        this.activatedRoute.params
+            .map(params => params.day)
+            .subscribe((lunchDayName: string) => {
+                console.log('LunchDayComponent', lunchDayName);
+                this.getMenu();
+            });
     }
 
     ngOnDestroy() {
@@ -47,7 +54,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     private placeOrder(order: any): void {
-        this.lunchDashboardService.createOrder(order).then(
+        this.lunchDashboardService.createOrder(order).subscribe(
             (orderList: any) => {
                 console.log('placeOrder', orderList);
             });

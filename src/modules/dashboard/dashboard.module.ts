@@ -5,11 +5,13 @@ import {
     MdInputModule,
     MdButtonModule,
     MdIconModule,
-    MdGridListModule
+    MdGridListModule,
+    MdCardModule
 } from '@angular/material';
 
 import { NavigationModule } from '../navigation/navigation.module';
 import { AuthModule } from '../auth/auth.module';
+import { FirebaseApiService } from '../firebase/firebase.api.service';
 
 import { DashboardRoutingModule } from './dashboard.module.router';
 import {
@@ -30,7 +32,8 @@ const MATERIAL_MODULES = [
     MdInputModule,
     MdButtonModule,
     MdIconModule,
-    MdGridListModule
+    MdGridListModule,
+    MdCardModule
 ];
 
 const COMPONENTS = [
@@ -43,6 +46,7 @@ const COMPONENTS = [
 ];
 
 const SERVICES = [
+    FirebaseApiService,
     LunchDashboardService,
     LunchMenuService
 ];

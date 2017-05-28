@@ -2,54 +2,56 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/switchMap';
 
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth';
 import { ILunchMenuService } from '../models/services/lunch-menu.interface';
+import { FirebaseApiService } from '../../firebase/firebase.api.service';
+
+import {
+    ILunchMenu,
+    ILunchDishGroup,
+    ILunchDish
+} from '../models/index';
 
 @Injectable()
 export class LunchMenuService implements ILunchMenuService {
-    private menu$: FirebaseListObservable<any[]>;
+    private userID: string;
+    private url: string;
 
-    constructor(private auth: AuthService,
-                private db: AngularFireDatabase) {
-        const path = `/menus/${auth.id}`;
-        this.menu$ = db.list(path);
+    constructor(private apiService: FirebaseApiService, auth: AuthService) {
+        this.userID = auth.id;
+        this.url = `/menus/${this.userID}`;
     }
 
-    public getMenu(): Observable<any> {
-        return this.menu$;
+    public getMenu(): Observable<ILunchMenu[]> {
+        return this.apiService.get<ILunchMenu>(this.url);
     }
 
-    public placeMenu(order: any): firebase.Promise<any> {
-        return this.menu$.push(order);
+    public placeMenu(menu: ILunchMenu): Observable<any> {
+        return this.apiService.create<any>(this.url, menu);
     }
 
-    public placeDishesFroup(dishesGroup: any): firebase.Promise<any> {
-        return this.menu$.push(dishesGroup);
+    public placeDishesGroup(dishesGroup: ILunchDishGroup): Observable<any> {
+        return this.apiService.create<any>(this.url, dishesGroup);
     }
 
-    public placeDish(dish: any): firebase.Promise<any> {
-        return this.menu$.push(dish);
+    public placeDish(dish: ILunchDish): Observable<any> {
+        return this.apiService.create<any>(this.url, dish);
     }
 
-    public clearMenu(menuId: string): firebase.Promise<any> {
-        return this.menu$.update(menuId, {});
+    public clearMenu(menuId: string): Observable<any> {
+        return this.apiService.update<any>(this.url, menuId, {});
     }
 
-    public clearDishesGroup(dishesGroupId: string): firebase.Promise<any> {
-        return this.updateMenu(dishesGroupId, {});
+    public clearDishesGroup(dishesGroupId: string): Observable<any> {
+        return this.apiService.update<any>(this.url, dishesGroupId, {});
     }
 
-    public removeDishesGroup(dishesGroupId: string): firebase.Promise<any> {
-        return this.menu$.remove(dishesGroupId);
+    public removeDishesGroup(dishesGroupId: string): Observable<any> {
+        return this.apiService.delete(this.url, dishesGroupId);
     }
 
-    public removeDish(dishesGroupId: string, dishId: string): firebase.Promise<any> {
-        return this.menu$.remove(dishesGroupId);
-    }
-
-    private updateMenu(dishesGroupId: string, dish: any): firebase.Promise<any> {
-        return this.menu$.update(dishesGroupId, dish);
+    public removeDish(dishesGroupId: string, dishId: string): Observable<any> {
+        return this.apiService.delete(this.url, dishesGroupId);
     }
 }

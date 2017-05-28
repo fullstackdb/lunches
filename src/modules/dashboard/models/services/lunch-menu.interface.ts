@@ -1,12 +1,17 @@
 import { Observable } from 'rxjs/Observable';
+import {
+    ILunchMenu,
+    ILunchDishGroup,
+    ILunchDish
+} from '../lunch/index';
 
 export interface ILunchMenuService {
-    getMenu(): Observable<any>;
-    placeMenu(order: any): firebase.Promise<any>;
-    placeDishesFroup(dishesGroup: any): firebase.Promise<any>;
-    placeDish(dish: any): firebase.Promise<any>;
-    clearMenu(menuId: string): firebase.Promise<any>;
-    clearDishesGroup(dishesGroupId: string): firebase.Promise<any>;
-    removeDishesGroup(dishesGroupId: string): firebase.Promise<any>;
-    removeDish(dishesGroupId: string, dishId: string): firebase.Promise<any>;
+    getMenu(): Observable<ILunchMenu[]>;
+    placeMenu(menu: ILunchMenu): Observable<any>;
+    placeDishesGroup(dishesGroup: ILunchDishGroup): Observable<any>;
+    placeDish(dish: ILunchDish): Observable<any>;
+    clearMenu(menuId: string): Observable<any>;
+    clearDishesGroup(dishesGroupId: string): Observable<any>;
+    removeDishesGroup(dishesGroupId: string): Observable<any>;
+    removeDish(dishesGroupId: string, dishId: string): Observable<any>;
 }

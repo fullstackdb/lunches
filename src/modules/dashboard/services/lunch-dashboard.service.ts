@@ -2,47 +2,40 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/switchMap';
 
 import { Injectable } from '@angular/core';
-import { AngularFire, AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 
-import { AuthService } from '../../auth';
 import { ILunchDashboardService } from '../models/services/lunch-dashboard.interface';
+import { FirebaseApiService } from '../../firebase/firebase.api.service';
+import { AuthService } from '../../auth/services/auth-service';
+import { IOrderLunch } from '../models/index';
 
 @Injectable()
 export class LunchDashboardService implements ILunchDashboardService {
-    private orderList$: FirebaseListObservable<any[]>;
+    private userID: string;
+    private url: string;
 
-    constructor(private af: AngularFire, auth: AuthService, db: AngularFireDatabase) {
-        const path = `/orders/${auth.id}`;
-
-        console.log(auth.id);
-        this.orderList$ = db.list(path);
-
-        //this.filteredTasks$ = af.database.list(path, {
-        //    query: {
-        //        orderByChild: 'completed',
-        //        equalTo     : this.filter$
-        //    }
-        //});
+    constructor(private apiService: FirebaseApiService, auth: AuthService) {
+        this.userID = auth.id;
+        this.url = `/orders/${this.userID}`;
     }
 
-    getOrderList(): Observable<any> {
-        return this.orderList$;
+    getOrderList(): Observable<IOrderLunch[]> {
+        return this.apiService.get<any>(this.url);
     }
 
-    getOrderByDate(date: Date): Observable<any> {
-        return this.orderList$;
+    getOrderByDate(date: Date): Observable<IOrderLunch[]> {
+        return  this.apiService.getByQuery<IOrderLunch>(this.url, {});
     }
 
-    createOrder(order: any): firebase.Promise<any> {
-        return this.orderList$.push(order);
+    createOrder(order: any = {}): Observable<any> {
+        return  this.apiService.create<any>(this.url, order);
     }
 
-    removeOrder(date: Date, orderId: any): firebase.Promise<any> {
-        return this.orderList$.remove(orderId);
+    removeOrder(orderId: any): Observable<any> {
+        return  this.apiService.delete(this.url, orderId);
     }
 
-    updateOrder(date: Date, order: any): firebase.Promise<any> {
-        return this.orderList$.update(order.orderId, order);
+    updateOrder(orderId: string, order: any): Observable<any> {
+        return  this.apiService.update(this.url, orderId, order);
     }
 }
