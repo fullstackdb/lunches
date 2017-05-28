@@ -4,6 +4,8 @@ import {
     Input,
     Output
 } from '@angular/core';
+import { ILunchDay } from '../../models/lunch/lunch-day.interface';
+import { lunchDayListResponse } from '../../../../mocks/dashboard/lunchDayResponse';
 
 @Component({
     selector: 'days-table',
@@ -14,16 +16,5 @@ import {
 })
 
 export class DaysTableComponent {
-    @Input() orderList: any;
-    @Input() daysList: any[];
-    @Output() orderCreated: EventEmitter<any> = new EventEmitter();
-    @Output() orderUpdated: EventEmitter<any> = new EventEmitter();
-
-    createOrder(order: any): void {
-        this.orderCreated.emit(order);
-    }
-
-    updateOrder(date: any, order: any): void {
-        this.orderUpdated.emit(order);
-    }
+    @Input() daysList: ILunchDay[] = lunchDayListResponse;
 }

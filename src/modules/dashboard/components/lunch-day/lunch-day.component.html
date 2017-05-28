@@ -1,1 +1,11 @@
-Lunch Day
+<md-card *ngIf="day"
+         class="lunch-day lunch-day__{{day.name.toLowerCase()}}">
+    <md-card-header>
+        <md-card-title class="lunch-day__name">
+            {{day.name}}
+        </md-card-title>
+        <md-card-subtitle class="lunch-day__date">
+            {{day.date | date:'dd/mm/yyyy'}}
+        </md-card-subtitle>
+    </md-card-header>
+</md-card><!-- /.lunch-day -->

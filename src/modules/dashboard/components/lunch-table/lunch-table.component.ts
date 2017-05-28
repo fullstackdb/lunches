@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { LunchDashboardService } from '../../services/lunch-dashboard.service';
 import { Subscription } from 'rxjs/Subscription';
+import { IOrderLunch } from '../../models/order/order-lunch.interface';
 
 @Component({
     selector: 'lunch-table',
@@ -21,24 +22,18 @@ export class LunchTableComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.placeOrder();
+        this.getOrderList();
     }
 
     ngOnDestroy() {
         this.getOrderSubscription.unsubscribe();
     }
 
-    getOrderList(): void {
-        this.getOrderSubscription = this.lunchService.getOrderList().subscribe((orderList: any[]) => {
-            console.log('getOrderList', orderList);
-            this.orderList = orderList;
-        });
-    }
-
-    placeOrder(): void {
-        this.lunchService.createOrder({orderId: 1, isItWorks: true}).then((orderList: any[]) => {
-            console.log('placeOrder', orderList);
-        });
-        this.getOrderList();
+    private getOrderList(): void {
+        this.getOrderSubscription = this.lunchService.getOrderList().subscribe(
+            (orderList: any[]) => {
+                console.log('getOrderList', orderList);
+                this.orderList = orderList;
+            });
     }
 }

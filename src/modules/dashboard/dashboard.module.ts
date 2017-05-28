@@ -1,29 +1,54 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+    MdInputModule,
+    MdButtonModule,
+    MdIconModule,
+    MdGridListModule,
+    MdCardModule
+} from '@angular/material';
 
 import { NavigationModule } from '../navigation/navigation.module';
 import { AuthModule } from '../auth/auth.module';
+import { FirebaseApiService } from '../firebase/firebase.api.service';
 
 import { DashboardRoutingModule } from './dashboard.module.router';
-import { LunchDashboardService } from './services/index';
+import {
+    LunchDashboardService,
+    LunchMenuService
+} from './services/index';
 
 import {
     LunchTableComponent,
     DaysTableComponent,
-    LunchDayComponent
+    LunchDayComponent,
+    LunchMenuComponent,
+    LunchDishGroupComponent,
+    LunchDishComponent
 } from './components/index';
 
-
+const MATERIAL_MODULES = [
+    MdInputModule,
+    MdButtonModule,
+    MdIconModule,
+    MdGridListModule,
+    MdCardModule
+];
 
 const COMPONENTS = [
     LunchTableComponent,
     DaysTableComponent,
-    LunchDayComponent
+    LunchDayComponent,
+    LunchMenuComponent,
+    LunchDishGroupComponent,
+    LunchDishComponent
 ];
 
 const SERVICES = [
-    LunchDashboardService
+    FirebaseApiService,
+    LunchDashboardService,
+    LunchMenuService
 ];
 
 @NgModule({
@@ -35,7 +60,8 @@ const SERVICES = [
         NavigationModule,
         DashboardRoutingModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ...MATERIAL_MODULES
     ],
     exports     : [
         DashboardRoutingModule

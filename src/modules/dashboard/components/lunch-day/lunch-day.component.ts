@@ -1,9 +1,8 @@
 import {
     Component,
-    EventEmitter,
-    Input,
-    Output
+    Input
 } from '@angular/core';
+import { ILunchDay } from '../../models/lunch/lunch-day.interface';
 
 @Component({
     selector: 'lunch-day',
@@ -14,16 +13,5 @@ import {
 })
 
 export class LunchDayComponent {
-    @Input() order: any;
-    @Input() day: any[];
-    @Output() orderCreated: EventEmitter<any> = new EventEmitter();
-    @Output() orderUpdated: EventEmitter<any> = new EventEmitter();
-
-    createOrder(): void {
-        this.orderCreated.emit(this.order);
-    }
-
-    updateOrder(): void {
-        this.orderUpdated.emit(this.order);
-    }
+    @Input() day: ILunchDay;
 }
