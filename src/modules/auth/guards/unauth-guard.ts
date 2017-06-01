@@ -4,19 +4,20 @@ import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../services/auth-service';
-
+import { UserService } from '../services/user.service';
 
 @Injectable()
-export class UnauthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+export class UnAuthGuard implements CanActivate {
 
-  canActivate(): Observable<boolean> {
-    return this.auth.auth$
-      .take(1)
-      .map(authState => !authState)
-      .do(unauthenticated => {
-        this.router.navigate([unauthenticated ? 'login' : 'dashboard']);
-      });
-  }
+    constructor(private router: Router,
+                private userService: UserService) {
+    }
+
+    canActivate(): Observable<boolean> {
+        console.log('UnAuthGuard', Boolean(this.userService.user));
+        if (Boolean(this.userService.user)) {
+            this.router.navigate(['dashboard']);
+        }
+        return Observable.of(!Boolean(this.userService.user));
+    }
 }

@@ -1,51 +1,51 @@
 <section class="sign-in">
-    <md-grid-list cols="1" rowHeight="fit">
+    <md-grid-list cols="1" rowHeight="600px">
         <md-grid-tile>
             <md-toolbar color="white" class="sign-in__form">
-                <md-toolbar-row class="content-center">
-                    <div class="sign-in__title">
-                        <h1>Sign In</h1>
-                    </div> 
-                </md-toolbar-row>
-                <md-toolbar-row class="content-center">
-                    <div class="sign-in__description">
-                        <p>Please enter your email and password below</p>
-                    </div> 
-                </md-toolbar-row>
-                <md-toolbar-row class="sign-in__form_item">
-                    <md-input-container>
-                        <input #email mdInput type="email" 
-                                    placeholder="Email" 
-                                    (keyup)="validateEmail($event.target.value)">
-                    </md-input-container>
-                    <div class="sign-in__email_help" *ngIf="showEmailWarningMessage(email.value)">
-                        Please fill it with LvivIT! email
-                    </div>
-                </md-toolbar-row>
+        <md-toolbar-row class="content-center">
+            <div class="sign-in__title">
+                <h1>Sign In</h1>
+            </div>
+        </md-toolbar-row>
+        <md-toolbar-row class="content-center">
+            <div class="sign-in__description">
+                <p>Please enter your email and password below</p>
+            </div>
+        </md-toolbar-row>
+        <md-toolbar-row class="sign-in__form_item">
+            <md-input-container>
+                <input #email mdInput type="email"
+                       placeholder="Email"
+                       (keyup)="validateEmail($event.target.value)">
+            </md-input-container>
+            <div class="sign-in__email_help" *ngIf="showEmailWarningMessage(email.value)">
+                Please fill it with LvivIT! email
+            </div>
+        </md-toolbar-row>
 
-                <md-toolbar-row class="sign-in__form_item">
-                    <md-input-container>
-                        <input  #password mdInput type="password" 
-                                    placeholder="Password" 
-                                    (keyup)="validatePassword($event.target.value)">
-                    </md-input-container>
-                    <div class="sign-in__password_help" *ngIf="showPasswordWarningMessage(password.value)">
-                        Password should consist of <br> 4 symbols at least
-                    </div>
-                </md-toolbar-row>
+        <md-toolbar-row class="sign-in__form_item">
+            <md-input-container>
+                <input  #password mdInput type="password"
+                        placeholder="Password"
+                        (keyup)="validatePassword($event.target.value)">
+            </md-input-container>
+            <div class="sign-in__password_help" *ngIf="showPasswordWarningMessage(password.value)">
+                Password should consist of <br> 4 symbols at least
+            </div>
+        </md-toolbar-row>
 
-                <md-toolbar-row class="sign-in__form_item">
-                    <md-checkbox>Remember me</md-checkbox>
-                </md-toolbar-row>
+        <md-toolbar-row class="sign-in__form_item">
+            <md-checkbox>Remember me</md-checkbox>
+        </md-toolbar-row>
 
-                <md-toolbar-row class="content-center">
-                    <button md-raised-button (click)="signIn(email.value, password.value)">Sign In</button>
-                </md-toolbar-row>
+        <md-toolbar-row class="content-center">
+            <button md-raised-button (click)="signIn(email.value, password.value)">Sign In</button>
+        </md-toolbar-row>
 
-                <md-toolbar-row class="content-center" class="sign-in__register content-center">
-                    You still dont have an account? <a routerLink="/register" class="sign-in__register_link">Register</a>
-                </md-toolbar-row>
-            </md-toolbar>
+        <md-toolbar-row class="content-center" class="sign-in__register content-center">
+            You still dont have an account? <a routerLink="/register" class="sign-in__register_link">Register</a>
+        </md-toolbar-row>
+    </md-toolbar>
         </md-grid-tile>
     </md-grid-list>
-</section>
+</section><!-- /.sign-in -->

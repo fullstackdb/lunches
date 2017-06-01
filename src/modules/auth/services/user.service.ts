@@ -4,7 +4,7 @@ import { UserInfo } from 'firebase';
 
 @Injectable()
 export class UserService {
-    private _user: UserInfo;
+    private _user: UserInfo | null = null;
     private activeUserSource = new ReplaySubject<UserInfo>(1);
 
     public ActiveUser$ = this.activeUserSource.asObservable();
@@ -17,9 +17,13 @@ export class UserService {
         return this._user;
     }
 
-    setActiveUser(activeUser: UserInfo): void {
+    public setActiveUser(activeUser: UserInfo): void {
         this.user = activeUser;
-        this.activeUserSource.next(activeUser);
+        this.tellAboutUser();
+    }
+
+    private tellAboutUser(): void {
+        this.activeUserSource.next(this.user);
     }
 
 }

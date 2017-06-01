@@ -3,4 +3,5 @@ export interface ILunchDish {
     name: string;
     description: string;
     thumbnailURL: string;
+    isActive: boolean;
 }

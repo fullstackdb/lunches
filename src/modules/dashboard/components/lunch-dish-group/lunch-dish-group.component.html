@@ -1,4 +1,22 @@
-<div>
-    Lunch Dish Group
-</div>
-<lunch-dish></lunch-dish>
+<section class="lunch-dish-group"
+         *ngIf="dishGroup && dishGroup.dishesList">
+    <md-grid-list cols="12"
+                  rowHeight="50px"
+                  (click)="showGroupDishes()"
+                  class="lunch-dish-group__manage">
+        <md-grid-tile class="lunch-dish-group__icons">
+            <md-icon *ngIf="isGroupDishesVisible">expand_less</md-icon>
+            <md-icon *ngIf="!isGroupDishesVisible">expand_more</md-icon>
+        </md-grid-tile><!-- /.lunch-dish-group__icons -->
+        <md-grid-tile class="lunch-dish-group__name">
+            {{dishGroup.name}}
+        </md-grid-tile><!-- /.lunch-dish-group__name -->
+    </md-grid-list>
+    <md-grid-list cols="3"
+                  rowHeight="300px"
+                  *ngIf="isGroupDishesVisible">
+        <md-grid-tile *ngFor="let dish of dishGroup.dishesList">
+            <lunch-dish [dish]="dish" (orderDishPlaced)="onOrderDishPlaced($event)"></lunch-dish>
+        </md-grid-tile>
+    </md-grid-list>
+</section><!-- /.lunch-dish-group -->

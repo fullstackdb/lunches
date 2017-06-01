@@ -10,8 +10,10 @@ export class AuthService {
                 public af: AngularFire,
                 private userService: UserService) {
         auth$.subscribe((state: FirebaseAuthState) => {
-            this.authState = state;
-            this.userService.setActiveUser(this.authState.auth);
+            if (state) {
+                this.authState = state;
+                this.userService.setActiveUser(this.authState.auth);
+            }
         });
     }
 

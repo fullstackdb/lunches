@@ -4,6 +4,10 @@ import {
     Input,
     Output
 } from '@angular/core';
+import {
+    ILunchDish,
+    OrderDishModel
+} from '../../models/index';
 
 @Component({
     selector: 'lunch-dish',
@@ -14,9 +18,15 @@ import {
 })
 
 export class LunchDishComponent {
-    @Input() dish: any;
-    @Output() order: EventEmitter<any> = new EventEmitter<any>();
+    @Input() date: Date;
+    @Input() dish: ILunchDish;
+    @Output() orderDishPlaced: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor() {
+    private orderDish: OrderDishModel;
+
+    public placeOrderDish(): void {
+        this.orderDish = new OrderDishModel(this.date, this.dish);
+        this.orderDishPlaced.emit(this.orderDish);
+        this.dish.isActive = true;
     }
 }

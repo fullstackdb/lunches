@@ -1,4 +1,7 @@
-<div>
-    Lunch menu
-</div>
-<lunch-dish-group></lunch-dish-group>
+<section class="lunch-menu" *ngIf="menu && menu.dishGroupList">
+    <lunch-dish-group *ngFor="let dishGroup of menu.dishGroupList"
+                      [dishGroup]="dishGroup"
+                      [name]="dishGroup.name"
+                      (orderDishGroupPlaced)="onOrderDishGroupPlaced($event)">
+    </lunch-dish-group>
+</section><!-- /.lunch-menu -->

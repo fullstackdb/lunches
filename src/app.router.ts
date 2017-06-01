@@ -4,7 +4,7 @@ import {
     Routes
 } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
-//import { UnauthGuard } from './modules/auth/guards/unauth-guard';
+//import { UnAuthGuard } from './modules/auth/guards/unauth-guard';
 
 const appRoutes: Routes = [
     {
@@ -19,7 +19,7 @@ const appRoutes: Routes = [
     {
         path        : 'user',
         loadChildren: 'modules/auth/auth.module#AuthModule',
-        //canActivate: [UnauthGuard]
+        //canActivate: [UnAuthGuard]
     },
     //{
     //    path        : 'dashboard',
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
         RouterModule
     ],
     //providers: [
-    //    UnauthGuard
+    //    UnAuthGuard
     //]
 })
 export class AppRoutingModule {

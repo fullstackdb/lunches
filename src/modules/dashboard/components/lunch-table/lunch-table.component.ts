@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { LunchDashboardService } from '../../services/lunch-dashboard.service';
 import { Subscription } from 'rxjs/Subscription';
-import { IOrderLunch } from '../../models/order/order-lunch.interface';
+import { OrderLunchModel } from '../../models/order/order-lunch.model';
 
 @Component({
     selector: 'lunch-table',

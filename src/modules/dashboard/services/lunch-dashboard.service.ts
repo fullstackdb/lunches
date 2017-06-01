@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ILunchDashboardService } from '../models/services/lunch-dashboard.interface';
 import { FirebaseApiService } from '../../firebase/firebase.api.service';
 import { AuthService } from '../../auth/services/auth-service';
-import { IOrderLunch } from '../models/index';
+import { OrderLunchModel } from '../models/index';
 
 @Injectable()
 export class LunchDashboardService implements ILunchDashboardService {
@@ -19,12 +19,12 @@ export class LunchDashboardService implements ILunchDashboardService {
         this.url = `/orders/${this.userID}`;
     }
 
-    getOrderList(): Observable<IOrderLunch[]> {
+    getOrderList(): Observable<OrderLunchModel[]> {
         return this.apiService.get<any>(this.url);
     }
 
-    getOrderByDate(date: Date): Observable<IOrderLunch[]> {
-        return  this.apiService.getByQuery<IOrderLunch>(this.url, {});
+    getOrderByDate(date: Date): Observable<OrderLunchModel[]> {
+        return  this.apiService.getByQuery<OrderLunchModel>(this.url, {});
     }
 
     createOrder(order: any = {}): Observable<any> {
