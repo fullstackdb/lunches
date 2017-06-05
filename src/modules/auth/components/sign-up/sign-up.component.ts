@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from '../../services/index';
+import { ISignUpForm, User } from '../../models/index';
+import { EMAIL_LENGTH, NAME_LENGTH, PASS_LENGTH } from '../../constants/sso.constants';
 
 @Component({
     selector: 'signup',
@@ -10,41 +12,71 @@ import { AuthService } from '../../services/auth-service';
     template: require('./sign-up.component.html')
 })
 export class SignUpComponent {
-    state: string = '';
-    error: any;
+    showFormNotValidMessage: boolean = false;
 
     constructor(private auth: AuthService, private router: Router) {
     }
 
-    onSubmit(formData: any): void {
-        if (formData.valid) {
-            console.log(formData.value);
-            let [email, password] = [formData.value.email, formData.value.password];
-            this.auth.signUp(email, password).then((success) => {
-                this.router.navigate(['/tasks'])
-            }).catch((err) => {
-                this.error = err;
-            });
+    public onSubmit(formData: any): void {
+        if (formData.valid && this.isFormValid(formData.value)) {
+            this.showFormNotValidMessage = false;
+            this.auth.signUp(new User(formData.value)).subscribe(
+                (user: User) => {
+                    this.router.navigate(['/tasks']);
+                },
+                (err: any) => {
+                    console.log(err);
+                });
+        } else {
+            this.showFormNotValidMessage = true;
         }
     }
 
+    private isFormValid(signUpForm: ISignUpForm): boolean {
+        return this.isNameValid(signUpForm.name) && this.isEmailValid(signUpForm.email) &&
+            this.isPasswordValid(signUpForm.password) && this.isSamePassword(signUpForm.password, signUpForm.repeatPassword);
+    }
+
     private isNameValid(formText: string): boolean {
+        if (formText === undefined) {
+            return false;
+        }
+
         if (formText.length) {
-            return Boolean(formText.length >= 3);
+            return Boolean(formText.length >= NAME_LENGTH);
         }
         return true;
     }
 
     private isEmailValid(formText: string): boolean {
+        if (formText === undefined) {
+            return false;
+        }
+
         if (formText.length) {
-            return formText.length > 10 ? formText.includes('@lvivit.com') : false;
+            return formText.length > EMAIL_LENGTH ? formText.includes('@') : false;
         }
         return true;
     }
 
     private isPasswordValid(formText: string): boolean {
+        if (formText === undefined) {
+            return false;
+        }
+
         if (formText.length) {
-            return Boolean(formText.length >= 4);
+            return Boolean(formText.length >= PASS_LENGTH);
+        }
+        return true;
+    }
+
+    private isSamePassword(pass: string, repeatPass: string): boolean {
+        if (pass === undefined || repeatPass === undefined) {
+            return false;
+        }
+
+        if (pass.length && repeatPass.length) {
+            return pass === repeatPass;
         }
         return true;
     }

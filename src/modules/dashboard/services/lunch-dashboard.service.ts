@@ -4,9 +4,9 @@ import 'rxjs/add/operator/switchMap';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { UserService } from '../../auth/index';
 import { ILunchDashboardService } from '../models/services/lunch-dashboard.interface';
 import { FirebaseApiService } from '../../firebase/firebase.api.service';
-import { AuthService } from '../../auth/services/auth-service';
 import { OrderLunchModel } from '../models/index';
 
 @Injectable()
@@ -14,8 +14,8 @@ export class LunchDashboardService implements ILunchDashboardService {
     private userID: string;
     private url: string;
 
-    constructor(private apiService: FirebaseApiService, auth: AuthService) {
-        this.userID = auth.id;
+    constructor(private apiService: FirebaseApiService, userService: UserService) {
+        this.userID = userService.user.id;
         this.url = `/orders/${this.userID}`;
     }
 
