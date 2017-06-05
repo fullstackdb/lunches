@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { User } from '../models/index';
+import { ApiUserService } from './api-user.service';
 
 @Injectable()
 export class UserService {
     private _user: User | null = null;
     private activeUserSource = new ReplaySubject<User>(1);
-
-    private tellAboutUser(): void {
-        this.activeUserSource.next(this.user);
-    }
 
     public ActiveUser$ = this.activeUserSource.asObservable();
 
@@ -21,9 +18,23 @@ export class UserService {
         return this._user;
     }
 
+    constructor(private apiUserService: ApiUserService) {
+        this.apiUserService.getActiveUser().subscribe(
+            (user: User | null) => {
+                console.log(user);
+                if (user !== null) {
+                    this.setActiveUser(user);
+                }
+            });
+    }
+
     public setActiveUser(activeUser: User): void {
         this.user = activeUser;
         this.tellAboutUser();
+    }
+
+    private tellAboutUser(): void {
+        this.activeUserSource.next(this.user);
     }
 
 }

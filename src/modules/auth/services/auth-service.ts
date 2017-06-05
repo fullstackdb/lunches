@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { AuthProviders, AuthMethods, FirebaseAuth, FirebaseAuthState, AngularFire } from 'angularfire2';
 import { UserService } from './user.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { ApiAuthService } from './api-auth.service';
+import { ApiUserService } from './api-user.service';
 
 @Injectable()
 export class AuthService {
 
     constructor(private userService: UserService,
-                private apiService: ApiAuthService) {
+                private apiService: ApiAuthService,
+                private apiUserService: ApiUserService) {
+        this.apiUserService.getActiveUser().subscribe(
+            (user: User) => {
+                this.setActiveUser(user);
+            });
     }
 
     signIn(email: string, password: string): Observable<User> {
