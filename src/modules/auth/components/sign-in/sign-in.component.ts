@@ -12,17 +12,21 @@ import { EMAIL_LENGTH, PASS_LENGTH } from '../../constants/sso.constants';
 export class SignInComponent {
     private isEmailValid: boolean = false;
     private isPasswordValid: boolean = false;
+    showFormNotValidMessage: boolean = false;
 
     constructor(private auth: AuthService, private router: Router) {
     }
 
     signIn(email: string, password: string): void {
         if (this.isFormValid()) {
+            this.showFormNotValidMessage = false;
             this.auth.signIn(email, password)
                 .subscribe((user: User) => {
                     console.log('signIn', user);
                     this.postSignIn();
                 });
+        } else {
+            this.showFormNotValidMessage = true;
         }
     }
 

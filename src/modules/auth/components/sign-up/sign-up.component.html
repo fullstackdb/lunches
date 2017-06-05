@@ -15,7 +15,7 @@
                     </md-toolbar-row>
                     <md-toolbar-row class="content-center" *ngIf="showFormNotValidMessage">
                         <div class="sign-up__message sign-up__message--warning">
-                            <p>Registration form is not valid. Please enter valid information</p>
+                            <p>Registration form is not valid. Please enter correct information</p>
                         </div>
                     </md-toolbar-row>
                     <md-toolbar-row class="sign-up__form_item">
@@ -39,7 +39,7 @@
                                         placeholder="Email">
                         </md-input-container>
                         <div class="sign-up__email_help" *ngIf="!isEmailValid(email.value)">
-                            Please fill it with LvivIT! email
+                            Please fill it with correct email
                         </div>
                     </md-toolbar-row>
                     <md-toolbar-row class="sign-up__form_item">
