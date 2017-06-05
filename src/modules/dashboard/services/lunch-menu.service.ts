@@ -3,10 +3,10 @@ import 'rxjs/add/operator/switchMap';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../../auth';
 import { ILunchMenuService } from '../models/services/lunch-menu.interface';
 import { FirebaseApiService } from '../../firebase/firebase.api.service';
 
+import { UserService } from '../../auth/index';
 import {
     ILunchMenu,
     ILunchDishGroup,
@@ -18,8 +18,8 @@ export class LunchMenuService implements ILunchMenuService {
     private userID: string;
     private url: string;
 
-    constructor(private apiService: FirebaseApiService, auth: AuthService) {
-        this.userID = auth.id;
+    constructor(private apiService: FirebaseApiService, userService: UserService) {
+        this.userID = userService.user.id;
         this.url = `/menus/${this.userID}`;
     }
 

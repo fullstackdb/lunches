@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdButtonModule } from '@angular/material';
 
 import { AppComponent } from './components/app.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -11,6 +12,10 @@ import { DashboardModule } from './modules/dashboard';
 import { NavigationModule } from './modules/navigation/navigation.module';
 import { AppRoutingModule } from 'src/app.router';
 import { FirebaseConfigModule } from './modules/firebase/index';
+
+const MATERIAL_MODULES = [
+    MdButtonModule
+];
 
 @NgModule({
     bootstrap   : [
@@ -27,7 +32,8 @@ import { FirebaseConfigModule } from './modules/firebase/index';
         AuthModule,
         FirebaseConfigModule,
         NavigationModule,
-        DashboardModule
+        DashboardModule,
+        ...MATERIAL_MODULES
     ],
     providers: [
         {

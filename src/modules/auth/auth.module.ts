@@ -10,6 +10,7 @@ import {
     MdGridListModule
 } from '@angular/material';
 
+import { AuthRoutingModule } from './auth.module.router';
 import {
     SignInComponent,
     SignUpComponent,
@@ -17,9 +18,11 @@ import {
 } from './components/index';
 import { AuthGuard } from './guards/auth-guard';
 import { UnAuthGuard } from './guards/unauth-guard';
-import { AuthService } from './services/auth-service';
-import { AuthRoutingModule } from './auth.module.router';
-import { UserService } from './services/user.service';
+import {
+    AuthService,
+    UserService,
+    ApiAuthService
+} from './services/index';
 
 const MATERIAL_MODULES = [
     MdCheckboxModule,
@@ -40,7 +43,8 @@ const SERVICES = [
     AuthGuard,
     AuthService,
     UnAuthGuard,
-    UserService
+    UserService,
+    ApiAuthService
 ];
 
 @NgModule({
@@ -64,7 +68,3 @@ const SERVICES = [
 })
 export class AuthModule {
 }
-
-export { AuthGuard };
-export { AuthService };
-export { UnAuthGuard };

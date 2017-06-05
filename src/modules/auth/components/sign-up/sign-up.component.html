@@ -1,9 +1,8 @@
 <section class="sign-up">
-    <md-grid-list cols="1" rowHeight="600px">
+    <md-grid-list cols="1" rowHeight="700px">
         <md-grid-tile>
                 <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-
-            <md-toolbar color="white" class="sign-up__form">
+                    <md-toolbar color="white" class="sign-up__form">
                     <md-toolbar-row class="content-center">
                         <div class="sign-up__title">
                             <h1>Registration</h1>
@@ -14,10 +13,17 @@
                             <p>Please enter your email, name and password below</p>
                         </div>
                     </md-toolbar-row>
+                    <md-toolbar-row class="content-center" *ngIf="showFormNotValidMessage">
+                        <div class="sign-up__message sign-up__message--warning">
+                            <p>Registration form is not valid. Please enter correct information</p>
+                        </div>
+                    </md-toolbar-row>
                     <md-toolbar-row class="sign-up__form_item">
                         <md-input-container>
                             <input #name mdInput
-                                        type="name"
+                                        type="text"
+                                        (ngModel)="name"
+                                        name="name"
                                         placeholder="Name">
                         </md-input-container>
                         <div class="sign-up__name_help" *ngIf="!isNameValid(name.value)">
@@ -33,10 +39,9 @@
                                         placeholder="Email">
                         </md-input-container>
                         <div class="sign-up__email_help" *ngIf="!isEmailValid(email.value)">
-                            Please fill it with LvivIT! email
+                            Please fill it with correct email
                         </div>
                     </md-toolbar-row>
-
                     <md-toolbar-row class="sign-up__form_item">
                         <md-input-container>
                             <input  #password mdInput
@@ -49,20 +54,18 @@
                             Password should consist of <br> 4 symbols at least
                         </div>
                     </md-toolbar-row>
-
                     <md-toolbar-row class="sign-up__form_item">
                         <md-input-container>
-                            <input  #password mdInput
+                            <input  #repeatPassword mdInput
                                     (ngModel)="password"
                                     type="password"
-                                    name="password"
+                                    name="repeatPassword"
                                     placeholder="Repeat Password">
                         </md-input-container>
-                        <div class="sign-up__password_help" *ngIf="!isPasswordValid(password.value)">
-                            Password should consist of <br> 4 symbols at least
+                        <div class="sign-up__password_help" *ngIf="!isSamePassword(password.value, repeatPassword.value)">
+                            Password`s should be similar
                         </div>
                     </md-toolbar-row>
-
                     <md-toolbar-row class="content-center">
                         <button md-raised-button
                                 type="submit"
@@ -71,9 +74,8 @@
                                 Register me
                         </button>
                     </md-toolbar-row>
-
                     <md-toolbar-row class="content-center" class="sign-up__register content-center">
-                        Already have an account? <a routerLink="/register" class="sign-up__register_link">Sign In</a>
+                        Already have an account? <a routerLink="/login" class="sign-up__register_link">Sign In</a>
                     </md-toolbar-row>
             </md-toolbar>
                 </form>
