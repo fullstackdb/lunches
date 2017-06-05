@@ -21,7 +21,9 @@ import { UnAuthGuard } from './guards/unauth-guard';
 import {
     AuthService,
     UserService,
-    ApiAuthService
+    ApiAuthService,
+    ApiUserService,
+    LocalStorageService
 } from './services/index';
 
 const MATERIAL_MODULES = [
@@ -44,7 +46,9 @@ const SERVICES = [
     AuthService,
     UnAuthGuard,
     UserService,
-    ApiAuthService
+    ApiAuthService,
+    ApiUserService,
+    LocalStorageService
 ];
 
 @NgModule({
