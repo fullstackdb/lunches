@@ -38,7 +38,7 @@ export class SignUpComponent {
     }
 
     private isNameValid(formText: string): boolean {
-        if (formText === undefined) {
+        if (formText === null || undefined) {
             return false;
         }
 
@@ -49,7 +49,7 @@ export class SignUpComponent {
     }
 
     private isEmailValid(formText: string): boolean {
-        if (formText === undefined) {
+        if (formText === null || undefined) {
             return false;
         }
 
@@ -60,7 +60,7 @@ export class SignUpComponent {
     }
 
     private isPasswordValid(formText: string): boolean {
-        if (formText === undefined) {
+        if (formText === null || undefined) {
             return false;
         }
 
@@ -71,7 +71,7 @@ export class SignUpComponent {
     }
 
     private isSamePassword(pass: string, repeatPass: string): boolean {
-        if (pass === undefined || repeatPass === undefined) {
+        if (pass === null || undefined) {
             return false;
         }
 
