@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { UserInfo } from 'firebase';
 
 import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
     selector: 'user-widget',
@@ -13,10 +14,11 @@ export class UserWidgetComponent implements OnInit, OnDestroy {
     private user: UserInfo;
     private userSubscription: Subscription;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private authService: AuthService) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.userSubscription = this.userService.ActiveUser$.subscribe(
             (user: UserInfo) => {
                 this.user = user;
@@ -27,8 +29,12 @@ export class UserWidgetComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.userSubscription.unsubscribe();
+    }
+
+    public logout(): void {
+        this.authService.signOut();
     }
 
 }

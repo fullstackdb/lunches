@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs/Observable';
-import { IOrderLunch } from '../order/index';
+import { OrderLunchModel } from '../order/index';
 
 export interface ILunchDashboardService {
-    getOrderList(): Observable<IOrderLunch[]>;
-    getOrderByDate(date: Date): Observable<IOrderLunch[]>;
+    getOrderList(): Observable<OrderLunchModel[]>;
+    getOrderByDate(date: Date): Observable<OrderLunchModel[]>;
     createOrder(order: any): Observable<any>;
     removeOrder(orderId: any): Observable<any>;
     updateOrder(orderId: string, order: any): Observable<any>;

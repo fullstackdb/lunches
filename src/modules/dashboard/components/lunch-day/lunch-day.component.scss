@@ -3,6 +3,10 @@
   padding: 15px;
   text-align: center;
   cursor:pointer;
+  border: 2px solid transparent;
+  &:focus, &:active, &:visited {
+    outline: none;
+  }
   &__name {
     font-size: 1.2em!important;
   }
@@ -23,5 +27,8 @@
   }
   &__friday {
     background: #9CCC65;
+  }
+  &--active {
+    border-color: black;
   }
 }

@@ -16,7 +16,7 @@ import {
     UserWidgetComponent
 } from './components/index';
 import { AuthGuard } from './guards/auth-guard';
-import { UnauthGuard } from './guards/unauth-guard';
+import { UnAuthGuard } from './guards/unauth-guard';
 import { AuthService } from './services/auth-service';
 import { AuthRoutingModule } from './auth.module.router';
 import { UserService } from './services/user.service';
@@ -39,7 +39,7 @@ const COMPONENTS = [
 const SERVICES = [
     AuthGuard,
     AuthService,
-    UnauthGuard,
+    UnAuthGuard,
     UserService
 ];
 
@@ -67,4 +67,4 @@ export class AuthModule {
 
 export { AuthGuard };
 export { AuthService };
-export { UnauthGuard };
+export { UnAuthGuard };

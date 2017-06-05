@@ -3,13 +3,16 @@
 "../../../../../node_modules/minx/src/mixins";
 
 
-.sign-in {
+.sign-up {
     &__form {
         width: 500px;
         margin: 0 auto;
         text-align: center;
         &_item {
             margin: 0 25px;
+        }
+        &_submit {
+            margin: 25px 0;
         }
     }
     &__email, &__password {
