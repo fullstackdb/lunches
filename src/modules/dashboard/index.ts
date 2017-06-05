@@ -1,2 +1,2 @@
-export { LunchDashboardService } from './services/lunch-dashboard.service';
+export { LunchOrderService } from './services/lunch-order.service';
 export { DashboardModule } from './dashboard.module';

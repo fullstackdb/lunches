@@ -24,9 +24,15 @@ export class LunchDishComponent {
 
     private orderDish: OrderDishModel;
 
-    public placeOrderDish(): void {
+    private placeOrderDish(): void {
         this.orderDish = new OrderDishModel(this.date, this.dish);
         this.orderDishPlaced.emit(this.orderDish);
         this.dish.isActive = true;
+    }
+
+    private removeOrderDish(): void {
+        this.orderDish = new OrderDishModel(this.date, null);
+        this.orderDishPlaced.emit(this.orderDish);
+        this.dish.isActive = false;
     }
 }

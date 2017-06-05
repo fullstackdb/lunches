@@ -14,5 +14,10 @@
                 (click)="placeOrderDish()">
             CHOOSE
         </button>
+        <button md-button
+                *ngIf="dish.isActive"
+                (click)="removeOrderDish()">
+            REMOVE
+        </button>
     </md-card-actions>
 </md-card><!-- /.lunch-dish -->

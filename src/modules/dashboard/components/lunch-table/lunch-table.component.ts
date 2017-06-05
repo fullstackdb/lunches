@@ -2,7 +2,7 @@ import {
     Component, OnDestroy,
     OnInit
 } from '@angular/core';
-import { LunchDashboardService } from '../../services/lunch-dashboard.service';
+import { LunchOrderService } from '../../services/lunch-order.service';
 import { Subscription } from 'rxjs/Subscription';
 import { OrderLunchModel } from '../../models/order/order-lunch.model';
 
@@ -18,7 +18,7 @@ export class LunchTableComponent implements OnInit, OnDestroy {
     getOrderSubscription: Subscription;
     orderList: any[];
 
-    constructor(private lunchService: LunchDashboardService) {
+    constructor(private lunchService: LunchOrderService) {
     }
 
     ngOnInit() {

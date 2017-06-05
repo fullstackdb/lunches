@@ -15,8 +15,10 @@ import { FirebaseApiService } from '../firebase/firebase.api.service';
 
 import { DashboardRoutingModule } from './dashboard.module.router';
 import {
-    LunchDashboardService,
-    LunchMenuService
+    LunchOrderService,
+    LunchMenuService,
+    ApiLunchOrderService,
+    ApiLunchMenuService
 } from './services/index';
 
 import {
@@ -47,8 +49,10 @@ const COMPONENTS = [
 
 const SERVICES = [
     FirebaseApiService,
-    LunchDashboardService,
-    LunchMenuService
+    LunchOrderService,
+    LunchMenuService,
+    ApiLunchOrderService,
+    ApiLunchMenuService
 ];
 
 @NgModule({
