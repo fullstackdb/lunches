@@ -1,14 +1,9 @@
 
 
 # Lunches app
-A simple app for ordering lunches example built with **Angular2** and **AngularFire2**. The app features a **Firebase** backend with **OAuth** authentication. Try the demo at <a href="https://lanchland.firebaseapp.com" target="_blank">lanchland.firebaseapp.com</a>.
+A simple app for ordering lunches built with **Angular2**.
 
 - Angular2 `2.4.1`
-- AngularFire2 `2.0.0-beta.5`
-- Firebase SDK 3
-  - JSON Datastore
-  - Authentication
-  - Hosting
 - Angular Material `2.0.0-beta.3`
 - SASS
 - Webpack
@@ -22,51 +17,14 @@ Quick Start
 -----------
 
 ```shell
-$ git clone
-$ cd lunchland
-$ npm install
-$ npm start
+$ git clone https://github.com/fullstackdb/lunches.git
+$ yarn install
+$ npm run start
 ```
 
-
-## Deploying to Firebase
-#### Prerequisites:
-- Create a free Firebase account at https://firebase.google.com
-- Create a project from your [Firebase account console](https://console.firebase.google.com)
-- Configure the authentication providers for your Firebase project from your Firebase account console
-
-#### Configure this app with your project-specific details:
-```javascript
-// .firebaserc
-
-{
-  "projects": {
-    "default": "your-project-id"
-  }
-}
-```
-```javascript
-// src/firebase/index.ts
-
-export const firebaseConfig = {
-  apiKey: 'your api key',
-  authDomain: 'your-project-id.firebaseapp.com',
-  databaseURL: 'https://your-project-id.firebaseio.com',
-  storageBucket: 'your-project-id.appspot.com'
-};
-```
-
-#### Install firebase-tools:
-```shell
-$ npm install -g firebase-tools
-```
-
-#### Build and deploy the app:
+### Build the app:
 ```shell
 $ npm run build
-$ firebase login
-$ firebase use default
-$ firebase deploy
 ```
 
 
