@@ -1,14 +1,17 @@
 import {
     Component,
     EventEmitter,
-    Input, OnInit,
+    Input, OnChanges, OnInit,
     Output
 } from '@angular/core';
 import {
     ILunchDishGroup,
     OrderDishGroupModel,
-    OrderDishModel
+    OrderDishModel,
+    OrderLunchModel,
+    ILunchDish
 } from '../../models/index';
+import {  } from '../../models/lunch/lunch-dish.interface';
 
 @Component({
     selector: 'lunch-dish-group',
@@ -18,10 +21,11 @@ import {
     template: require('./lunch-dish-group.component.html')
 })
 
-export class LunchDishGroupComponent implements OnInit {
+export class LunchDishGroupComponent implements OnInit, OnChanges {
     @Input() date: Date;
-    @Input() name: string;
     @Input() dishGroup: ILunchDishGroup;
+    @Input() order: OrderDishGroupModel;
+
     @Output() orderDishGroupPlaced: EventEmitter<any> = new EventEmitter<any>();
 
     private _isGroupDishesVisible: boolean = false;
@@ -32,8 +36,12 @@ export class LunchDishGroupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.orderDishGroup = new OrderDishGroupModel();
-        this.orderDishGroup.name = 'first';
+        this.orderDishGroup = new OrderDishGroupModel(new Date(), this.order.dishList);
+        this.orderDishGroup.name = this.dishGroup.name;
+    }
+
+    ngOnChanges(): void {
+        console.log('LunchDishGroupComponent', this.order);
     }
 
     private addDishIntoGroupOrder(orderDish: OrderDishModel): void {

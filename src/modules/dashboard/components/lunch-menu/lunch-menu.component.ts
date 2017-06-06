@@ -5,7 +5,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import {
-    LunchDashboardService,
+    LunchOrderService,
     LunchMenuService
 } from '../../services/index';
 import {
@@ -14,6 +14,7 @@ import {
     OrderLunchModel
 } from '../../models/index';
 import { Utils } from '../../services/utils';
+import { lunchMenuMock } from '../../../../mocks/dashboard/lunchMenuMock';
 
 @Component({
     selector : 'lunch-menu',
@@ -33,7 +34,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     private orderLunch: OrderLunchModel;
 
     constructor(private lunchMenuService: LunchMenuService,
-                private lunchDashboardService: LunchDashboardService,
+                private lunchOrderService: LunchOrderService,
                 private activatedRoute: ActivatedRoute,
                 private utils: Utils) {
     }
@@ -44,7 +45,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
             .subscribe((lunchDayName: string) => {
                 this.lunchDayName = lunchDayName;
                 this.getMenu();
-                this.orderLunch = new OrderLunchModel();
+                this.getOrder();
             });
     }
 
@@ -52,43 +53,75 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
         this.getMenuSubscription.unsubscribe();
     }
 
+    public onOrderDishGroupPlaced(orderDishGroup: OrderDishGroupModel): void {
+        this.addOrderDishGroupIntoOrder(orderDishGroup);
+        this.placeOrder();
+    }
+
+    public getDishGroupOrder(dishGroupName: string): OrderDishGroupModel {
+        return this.lunchOrderService.getDishGroupOrder(dishGroupName, this.orderLunch);
+    }
+
     private getMenu(): void {
         this.getMenuSubscription = this.lunchMenuService.getMenu().subscribe(
-            (orderList: ILunchMenu[]) => {
-                if (orderList && orderList.length) {
-                    console.log('getMenu', orderList);
-                    this.menu = orderList[0];
+            (lunchMenu: ILunchMenu) => {
+                console.log('getMenu', lunchMenu);
+                if (lunchMenu) {
+                    this.menu = lunchMenu;
+                }
+            });
+    }
+
+    private getOrder(): void {
+        this.getMenuSubscription = this.lunchOrderService.getOrderByDay(this.lunchDayName).subscribe(
+            (order: OrderLunchModel) => {
+                console.log('getOrder', order);
+                if (order) {
+                    this.orderLunch = order;
                 }
             });
     }
 
     private placeOrder(): void {
-        console.log('placeOrder', this.orderLunch);
-        //this.lunchDashboardService.createOrder(order).subscribe(
-        //    (orderList: any) => {
-        //        console.log('placeOrder', orderList);
-        //    });
+        this.lunchOrderService.createOrder(this.orderLunch).subscribe(
+            (order: OrderLunchModel) => {
+                console.log('placeOrder', order);
+                this.orderLunch = order;
+                this.lunchOrderService.currentOrderChanged(order);
+            });
     }
 
-    //private placeMockMenu(): void {
-    //    this.lunchMenuService.placeMenu(lunchMenuMock).subscribe(
-    //        (resp: any) => {
-    //            console.log('placeMockMenu', resp);
-    //        });
-    //}
-    private isOrderLunchContainOrderGroup(orderLunch: OrderLunchModel, orderGroup: OrderDishGroupModel): boolean {
-        return orderLunch.dishOrdersList.some((lunchOrderGroup: any) => lunchOrderGroup.name  === orderGroup.name);
+    /**
+     * @override
+     * temporary mock solution
+     */
+    private placeMockMenu(): void {
+        this.lunchMenuService.placeMenu(lunchMenuMock).subscribe(
+            (resp: any) => {
+                console.log('placeMockMenu', resp);
+            });
     }
 
     private addOrderDishGroupIntoOrder(orderDishGroup: OrderDishGroupModel): void {
-        console.log(!this.isOrderLunchContainOrderGroup(this.orderLunch, orderDishGroup));
         if (!this.isOrderLunchContainOrderGroup(this.orderLunch, orderDishGroup)) {
             this.orderLunch.dishOrdersList.push(orderDishGroup);
+        } else {
+            this.replaceOrderGroup(orderDishGroup);
         }
     }
 
-    public onOrderDishGroupPlaced(orderDishGroup: OrderDishGroupModel): void {
-        this.addOrderDishGroupIntoOrder(orderDishGroup);
-        this.placeOrder();
+    private isOrderLunchContainOrderGroup(orderLunch: OrderLunchModel, orderGroup: OrderDishGroupModel): boolean {
+        return orderLunch.dishOrdersList.some((lunchOrderGroup: any) => {
+            return lunchOrderGroup.name === orderGroup.name;
+        });
+    }
+
+    private replaceOrderGroup(orderGroup: OrderDishGroupModel): void {
+        this.orderLunch.dishOrdersList.map((lunchOrderGroup: OrderDishGroupModel) => {
+            if (lunchOrderGroup.name === orderGroup.name && lunchOrderGroup.dishList.length) {
+                lunchOrderGroup.dishList = orderGroup.dishList;
+            }
+            return lunchOrderGroup;
+        });
     }
 }

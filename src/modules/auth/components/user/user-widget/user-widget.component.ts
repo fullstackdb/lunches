@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { UserInfo } from 'firebase';
 
-import { UserService } from '../../../services/user.service';
-import { AuthService } from '../../../services/auth-service';
+import { UserService, AuthService } from '../../../services/index';
+import { User } from '../../../models/index';
 
 @Component({
     selector: 'user-widget',
@@ -11,7 +10,7 @@ import { AuthService } from '../../../services/auth-service';
     template: require('./user-widget.component.html')
 })
 export class UserWidgetComponent implements OnInit, OnDestroy {
-    private user: UserInfo;
+    private user: User;
     private userSubscription: Subscription;
 
     constructor(private userService: UserService,
@@ -20,7 +19,8 @@ export class UserWidgetComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.userSubscription = this.userService.ActiveUser$.subscribe(
-            (user: UserInfo) => {
+            (user: User) => {
+                console.log('UserWidgetComponent', user);
                 this.user = user;
             },
             (err: any) => {

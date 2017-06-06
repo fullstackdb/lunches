@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
+import { User } from '../../models/index';
+import { EMAIL_LENGTH, PASS_LENGTH } from '../../constants/sso.constants';
 
 @Component({
     styles  : [require('./sign-in.component.scss')],
@@ -10,17 +12,21 @@ import { AuthService } from '../../services/auth-service';
 export class SignInComponent {
     private isEmailValid: boolean = false;
     private isPasswordValid: boolean = false;
+    showFormNotValidMessage: boolean = false;
 
     constructor(private auth: AuthService, private router: Router) {
     }
 
     signIn(email: string, password: string): void {
         if (this.isFormValid()) {
+            this.showFormNotValidMessage = false;
             this.auth.signIn(email, password)
-                .then((user: any) => {
+                .subscribe((user: User) => {
                     console.log('signIn', user);
                     this.postSignIn();
                 });
+        } else {
+            this.showFormNotValidMessage = true;
         }
     }
 
@@ -30,13 +36,13 @@ export class SignInComponent {
 
     private validateEmail(email: string): void {
         if (email.length) {
-            this.isEmailValid = Boolean(email.length >= 5);  // ? email.includes('@lvivit.com') : false;
+            this.isEmailValid = email.length > EMAIL_LENGTH ? email.includes('@') : false;
         }
     }
 
     private validatePassword(password: string): void {
         if (password.length) {
-            this.isPasswordValid = Boolean(password.length >= 8);
+            this.isPasswordValid = Boolean(password.length >= PASS_LENGTH);
         }
     }
 

@@ -4,6 +4,15 @@
 
 
 .sign-up {
+    &__message {
+        margin-bottom: 15px;
+        padding: 15px;
+        font-size: 0.7em;
+        font-weight: bold;
+        &--warning {
+            background: gold;
+        }
+    }
     &__form {
         width: 500px;
         margin: 0 auto;
@@ -13,6 +22,7 @@
         }
         &_submit {
             margin: 25px 0;
+            background: #AED581;
         }
     }
     &__email, &__password {

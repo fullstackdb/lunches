@@ -14,7 +14,6 @@ export class UnAuthGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        console.log('UnAuthGuard', Boolean(this.userService.user));
         if (Boolean(this.userService.user)) {
             this.router.navigate(['dashboard']);
         }

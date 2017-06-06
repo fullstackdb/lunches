@@ -3,12 +3,24 @@
 "../../../../../node_modules/minx/src/mixins";
 
 .sign-in {
+    &__message {
+        margin-bottom: 15px;
+        padding: 15px;
+        font-size: 0.7em;
+        font-weight: bold;
+        &--warning {
+            background: gold;
+        }
+    }
     &__form {
         width: 500px;
         margin: 0 auto;
         text-align: center;
         &_item {
             margin: 0 25px;
+        }
+        &_submit {
+            background: #AED581;
         }
     }
     &__email, &__password {
