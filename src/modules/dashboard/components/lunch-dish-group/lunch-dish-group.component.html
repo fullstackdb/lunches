@@ -11,9 +11,12 @@
         <md-grid-tile class="lunch-dish-group__name">
             {{dishGroup.name}}
         </md-grid-tile><!-- /.lunch-dish-group__name -->
-        <md-grid-tile class="lunch-dish-group__order" *ngFor="let orderDish of order.dishOrdersList">
-            {{dishGroup.name}}
-        </md-grid-tile><!-- /.lunch-dish-group__name -->
+        <ng-template *ngIf="hasGroupDishesOrder()">
+            <md-grid-tile class="lunch-dish-group__order" *ngFor="let orderDish of order.dishList">
+                {{dishGroup.name}}
+            </md-grid-tile><!-- /.lunch-dish-group__name -->
+        </ng-template>
+
     </md-grid-list>
     <md-grid-list cols="3"
                   rowHeight="300px"

@@ -7,9 +7,7 @@ import {
 import {
     ILunchDishGroup,
     OrderDishGroupModel,
-    OrderDishModel,
-    OrderLunchModel,
-    ILunchDish
+    OrderDishModel
 } from '../../models/index';
 import {  } from '../../models/lunch/lunch-dish.interface';
 
@@ -36,12 +34,14 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
+        this.order = this.order || { dishList: [] } as OrderDishGroupModel;
         this.orderDishGroup = new OrderDishGroupModel(new Date(), this.order.dishList);
         this.orderDishGroup.name = this.dishGroup.name;
+        console.log('LunchDishGroupComponent', this.dishGroup.name, this.order);
     }
 
     ngOnChanges(): void {
-        console.log('LunchDishGroupComponent', this.order);
+        //console.log('LunchDishGroupComponent changes', this.order);
     }
 
     private addDishIntoGroupOrder(orderDish: OrderDishModel): void {
@@ -54,6 +54,10 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
 
     public showGroupDishes(): void {
         this._isGroupDishesVisible = !this._isGroupDishesVisible;
+    }
+
+    public hasGroupDishesOrder(): boolean {
+        return Boolean(this.order && this.order.dishList);
     }
 
     public onOrderDishPlaced(orderDish: OrderDishModel): void {

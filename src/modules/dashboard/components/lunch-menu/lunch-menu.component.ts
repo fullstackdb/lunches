@@ -63,6 +63,10 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
         return this.lunchOrderService.getDishGroupOrder(dishGroupName, this.orderLunch);
     }
 
+    private isEmpty(): boolean {
+        return !Boolean(this.menu && this.menu.dishGroupList && this.orderLunch && this.orderLunch.dishOrdersList);
+    }
+
     private getMenu(): void {
         this.getMenuSubscription = this.lunchMenuService.getMenu().subscribe(
             (lunchMenu: ILunchMenu) => {
@@ -119,7 +123,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
 
     private replaceOrderGroup(orderGroup: OrderDishGroupModel): void {
         this.orderLunch.dishOrdersList.map((lunchOrderGroup: OrderDishGroupModel) => {
-            if (lunchOrderGroup.name === orderGroup.name && lunchOrderGroup.dishList.length) {
+            if (lunchOrderGroup && lunchOrderGroup.name === orderGroup.name && lunchOrderGroup.dishList.length) {
                 lunchOrderGroup.dishList = orderGroup.dishList;
             }
             return lunchOrderGroup;
