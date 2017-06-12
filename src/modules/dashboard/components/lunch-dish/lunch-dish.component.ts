@@ -1,7 +1,7 @@
 import {
     Component,
     EventEmitter,
-    Input,
+    Input, OnInit,
     Output
 } from '@angular/core';
 import {
@@ -17,22 +17,38 @@ import {
     template: require('./lunch-dish.component.html')
 })
 
-export class LunchDishComponent {
+export class LunchDishComponent implements OnInit {
     @Input() date: Date;
     @Input() dish: ILunchDish;
-    @Output() orderDishPlaced: EventEmitter<any> = new EventEmitter<any>();
+    @Input() dishOrder: OrderDishModel | null;
+    @Output() orderDishPlaced: EventEmitter<OrderDishModel> = new EventEmitter<OrderDishModel>();
+    @Output() orderDishRemoved: EventEmitter<OrderDishModel> = new EventEmitter<OrderDishModel>();
 
     private orderDish: OrderDishModel;
 
-    private placeOrderDish(): void {
-        this.orderDish = new OrderDishModel(this.date, this.dish);
-        this.orderDishPlaced.emit(this.orderDish);
-        this.dish.isActive = true;
+    public ngOnInit(): void {
+        console.log(this.dishOrder, this.isActive());
     }
 
-    private removeOrderDish(): void {
-        this.orderDish = new OrderDishModel(this.date, null);
+    public addOrderDish(): void {
+        this.dish.isActive = true;
+        this.createOrderDish();
         this.orderDishPlaced.emit(this.orderDish);
-        this.dish.isActive = false;
     }
+
+    public removeOrderDish(): void {
+        this.dish.isActive = false;
+        this.createOrderDish();
+        this.orderDishRemoved.emit(this.orderDish);
+    }
+
+    public isActive(): boolean {
+        return Boolean(this.dishOrder);
+    }
+
+    private createOrderDish(): void {
+        this.orderDish = this.dishOrder || new OrderDishModel(this.date, this.dish);
+        this.orderDish.dish.isActive = this.dish.isActive;
+    }
+
 }

@@ -48,12 +48,25 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
         this.orderDishGroup.dishList.push(orderDish);
     }
 
+    private removeDishFromGroupOrder(orderDish: OrderDishModel): void {
+        this.orderDishGroup.dishList = this.orderDishGroup.dishList
+                                            .filter((dish: OrderDishModel) => dish.dish.name !== orderDish.dish.name);
+    }
+
     private placeOrderDishGroup(): void {
         this.orderDishGroupPlaced.emit(this.orderDishGroup);
     }
 
+    private isDemandFulfilled(orderDish: OrderDishModel): boolean {
+        return Boolean(orderDish && orderDish.dish && !this.orderDishGroup.dishList.length);
+    }
+
     public showGroupDishes(): void {
         this._isGroupDishesVisible = !this._isGroupDishesVisible;
+    }
+
+    public getDishOrder(orderDishName: string): OrderDishModel | null {
+        return this.order.dishList.filter((orderDish: OrderDishModel) => orderDish.dish.name === orderDishName)[0] || null;
     }
 
     public hasGroupDishesOrder(): boolean {
@@ -61,7 +74,16 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     public onOrderDishPlaced(orderDish: OrderDishModel): void {
-        this.addDishIntoGroupOrder(orderDish);
+        if (this.isDemandFulfilled(orderDish)) {
+            this.addDishIntoGroupOrder(orderDish);
+            this.placeOrderDishGroup();
+            console.log('onOrderDishPlaced', orderDish, this.orderDishGroup.dishList);
+        }
+    }
+
+    public onOrderDishRemoved(orderDish: OrderDishModel): void {
+        this.removeDishFromGroupOrder(orderDish);
         this.placeOrderDishGroup();
+        //console.log('onOrderDishRemoved', orderDish, this.orderDishGroup.dishList);
     }
 }

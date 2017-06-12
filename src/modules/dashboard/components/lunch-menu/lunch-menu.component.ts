@@ -108,10 +108,12 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     private addOrderDishGroupIntoOrder(orderDishGroup: OrderDishGroupModel): void {
-        if (!this.isOrderLunchContainOrderGroup(this.orderLunch, orderDishGroup)) {
-            this.orderLunch.dishOrdersList.push(orderDishGroup);
-        } else {
+        if (this.isOrderLunchContainOrderGroup(this.orderLunch, orderDishGroup)) {
+            console.log('addOrderDishGroupIntoOrder', 'contain');
             this.replaceOrderGroup(orderDishGroup);
+        } else {
+            console.log('addOrderDishGroupIntoOrder', 'not contain');
+            this.orderLunch.dishOrdersList.push(orderDishGroup);
         }
     }
 

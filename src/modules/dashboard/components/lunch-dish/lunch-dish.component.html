@@ -10,12 +10,12 @@
     </md-card-content>
     <md-card-actions>
         <button md-button
-                *ngIf="!dish.isActive"
-                (click)="placeOrderDish()">
+                *ngIf="!isActive()"
+                (click)="addOrderDish()">
             CHOOSE
         </button>
         <button md-button
-                *ngIf="dish.isActive"
+                *ngIf="isActive()"
                 (click)="removeOrderDish()">
             REMOVE
         </button>
