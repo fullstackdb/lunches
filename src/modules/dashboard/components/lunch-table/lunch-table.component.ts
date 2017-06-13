@@ -32,7 +32,6 @@ export class LunchTableComponent implements OnInit, OnDestroy {
     private getOrderList(): void {
         this.getOrderSubscription = this.lunchService.getOrderList().subscribe(
             (orderList: any[]) => {
-                console.log('getOrderList', orderList);
                 this.orderList = orderList;
             });
     }

@@ -40,6 +40,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        //this.placeMockMenu();
         this.activatedRoute.params
             .map(params => params.day)
             .subscribe((lunchDayName: string) => {
@@ -50,7 +51,6 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        console.log('ngOnDestroy');
         this.getMenuSubscription.unsubscribe();
     }
 
@@ -60,17 +60,16 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     public getDishGroupOrder(dishGroupName: string): OrderDishGroupModel {
-        return this.lunchOrderService.getDishGroupOrder(dishGroupName, this.orderLunch);
+        return this.lunchOrderService.getDishGroupOrder(dishGroupName, this.orderLunch) || {} as OrderDishGroupModel;
     }
 
     private isEmpty(): boolean {
-        return !Boolean(this.menu && this.menu.dishGroupList && this.orderLunch && this.orderLunch.dishOrdersList);
+        return !Boolean(this.menu && this.menu.dishGroupList);
     }
 
     private getMenu(): void {
         this.getMenuSubscription = this.lunchMenuService.getMenu().subscribe(
             (lunchMenu: ILunchMenu) => {
-                console.log('getMenu', lunchMenu);
                 if (lunchMenu) {
                     this.menu = lunchMenu;
                 }
@@ -80,7 +79,6 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     private getOrder(): void {
         this.getMenuSubscription = this.lunchOrderService.getOrderByDay(this.lunchDayName).subscribe(
             (order: OrderLunchModel) => {
-                console.log('getOrder', order);
                 if (order) {
                     this.orderLunch = order;
                 }
@@ -90,7 +88,6 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     private placeOrder(): void {
         this.lunchOrderService.createOrder(this.orderLunch).subscribe(
             (order: OrderLunchModel) => {
-                console.log('placeOrder', order);
                 this.orderLunch = order;
                 this.lunchOrderService.currentOrderChanged(order);
             });
@@ -109,10 +106,8 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
 
     private addOrderDishGroupIntoOrder(orderDishGroup: OrderDishGroupModel): void {
         if (this.isOrderLunchContainOrderGroup(this.orderLunch, orderDishGroup)) {
-            console.log('addOrderDishGroupIntoOrder', 'contain');
             this.replaceOrderGroup(orderDishGroup);
         } else {
-            console.log('addOrderDishGroupIntoOrder', 'not contain');
             this.orderLunch.dishOrdersList.push(orderDishGroup);
         }
     }
@@ -125,7 +120,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
 
     private replaceOrderGroup(orderGroup: OrderDishGroupModel): void {
         this.orderLunch.dishOrdersList.map((lunchOrderGroup: OrderDishGroupModel) => {
-            if (lunchOrderGroup && lunchOrderGroup.name === orderGroup.name && lunchOrderGroup.dishList.length) {
+            if (lunchOrderGroup && lunchOrderGroup.name === orderGroup.name) {
                 lunchOrderGroup.dishList = orderGroup.dishList;
             }
             return lunchOrderGroup;

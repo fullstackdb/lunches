@@ -26,6 +26,7 @@
         <md-grid-tile *ngFor="let dish of dishGroup.dishesList">
             <lunch-dish [dish]="dish"
                         [dishOrder]="getDishOrder(dish.name)"
+                        [isDemandFulfilled]="isDemandFulfilled()"
                         (orderDishPlaced)="onOrderDishPlaced($event)"
                         (orderDishRemoved)="onOrderDishRemoved($event)">
             </lunch-dish>

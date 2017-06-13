@@ -21,13 +21,14 @@ export class LunchDishComponent implements OnInit {
     @Input() date: Date;
     @Input() dish: ILunchDish;
     @Input() dishOrder: OrderDishModel | null;
+    @Input() isDemandFulfilled: boolean;
     @Output() orderDishPlaced: EventEmitter<OrderDishModel> = new EventEmitter<OrderDishModel>();
     @Output() orderDishRemoved: EventEmitter<OrderDishModel> = new EventEmitter<OrderDishModel>();
 
     private orderDish: OrderDishModel;
 
     public ngOnInit(): void {
-        console.log(this.dishOrder, this.isActive());
+        console.log('LunchDishComponent', this.dishOrder, this.isDemandFulfilled);
     }
 
     public addOrderDish(): void {

@@ -50,7 +50,9 @@ export class LunchOrderService implements ILunchOrderService {
         this.currentOrderSource.next(order);
     }
 
-    public getDishGroupOrder(dishGroupName: string, orderLunch: OrderLunchModel): OrderDishGroupModel {
-        return orderLunch.dishOrdersList.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.name === dishGroupName)[0];
+    public getDishGroupOrder(dishGroupName: string, orderLunch: OrderLunchModel): OrderDishGroupModel | undefined {
+        return orderLunch ?
+            orderLunch.dishOrdersList.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.name === dishGroupName)[0] :
+            undefined;
     }
 }

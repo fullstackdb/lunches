@@ -9,7 +9,7 @@ import {
     OrderDishGroupModel,
     OrderDishModel
 } from '../../models/index';
-import {  } from '../../models/lunch/lunch-dish.interface';
+import {} from '../../models/lunch/lunch-dish.interface';
 
 @Component({
     selector: 'lunch-dish-group',
@@ -34,10 +34,9 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        this.order = this.order || { dishList: [] } as OrderDishGroupModel;
+        this.order = this.order || {dishList: []} as OrderDishGroupModel;
         this.orderDishGroup = new OrderDishGroupModel(new Date(), this.order.dishList);
         this.orderDishGroup.name = this.dishGroup.name;
-        console.log('LunchDishGroupComponent', this.dishGroup.name, this.order);
     }
 
     ngOnChanges(): void {
@@ -50,15 +49,15 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
 
     private removeDishFromGroupOrder(orderDish: OrderDishModel): void {
         this.orderDishGroup.dishList = this.orderDishGroup.dishList
-                                            .filter((dish: OrderDishModel) => dish.dish.name !== orderDish.dish.name);
+            .filter((dish: OrderDishModel) => dish.dish.name !== orderDish.dish.name);
     }
 
     private placeOrderDishGroup(): void {
         this.orderDishGroupPlaced.emit(this.orderDishGroup);
     }
 
-    private isDemandFulfilled(orderDish: OrderDishModel): boolean {
-        return Boolean(orderDish && orderDish.dish && !this.orderDishGroup.dishList.length);
+    private isDemandFulfilled(): boolean {
+        return Boolean(!this.orderDishGroup.dishList.length);
     }
 
     public showGroupDishes(): void {
@@ -66,7 +65,9 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     public getDishOrder(orderDishName: string): OrderDishModel | null {
-        return this.order.dishList.filter((orderDish: OrderDishModel) => orderDish.dish.name === orderDishName)[0] || null;
+        return this.order && this.order.dishList ?
+            this.order.dishList.filter((orderDish: OrderDishModel) => orderDish.dish.name === orderDishName)[0] || null :
+            null;
     }
 
     public hasGroupDishesOrder(): boolean {
@@ -74,16 +75,14 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     public onOrderDishPlaced(orderDish: OrderDishModel): void {
-        if (this.isDemandFulfilled(orderDish)) {
+        if (this.isDemandFulfilled()) {
             this.addDishIntoGroupOrder(orderDish);
             this.placeOrderDishGroup();
-            console.log('onOrderDishPlaced', orderDish, this.orderDishGroup.dishList);
         }
     }
 
     public onOrderDishRemoved(orderDish: OrderDishModel): void {
         this.removeDishFromGroupOrder(orderDish);
         this.placeOrderDishGroup();
-        //console.log('onOrderDishRemoved', orderDish, this.orderDishGroup.dishList);
     }
 }
