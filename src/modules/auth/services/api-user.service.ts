@@ -12,4 +12,8 @@ export class ApiUserService implements IApiUserService {
     getActiveUser(): Observable<User> {
         return this.localStorageService.get<User>('user');
     }
+
+    setActiveUser(activeUser: User): void {
+        this.localStorageService.set<User>('user', activeUser);
+    }
 }

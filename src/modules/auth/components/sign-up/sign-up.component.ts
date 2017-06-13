@@ -14,7 +14,8 @@ import { EMAIL_LENGTH, NAME_LENGTH, PASS_LENGTH } from '../../constants/sso.cons
 export class SignUpComponent {
     showFormNotValidMessage: boolean = false;
 
-    constructor(private auth: AuthService, private router: Router) {
+    constructor(private auth: AuthService,
+                private router: Router) {
     }
 
     public onSubmit(formData: any): void {
@@ -22,7 +23,7 @@ export class SignUpComponent {
             this.showFormNotValidMessage = false;
             this.auth.signUp(new User(formData.value)).subscribe(
                 (user: User) => {
-                    this.router.navigate(['/tasks']);
+                    this.router.navigate(['/dashboard']);
                 },
                 (err: any) => {
                     console.log(err);

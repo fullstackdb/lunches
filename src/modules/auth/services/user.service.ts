@@ -29,6 +29,7 @@ export class UserService {
     }
 
     public setActiveUser(activeUser: User): void {
+        this.apiUserService.setActiveUser(activeUser);
         this.user = activeUser;
         this.tellAboutUser();
     }
