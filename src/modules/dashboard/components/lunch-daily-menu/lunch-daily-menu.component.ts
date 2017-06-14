@@ -9,28 +9,27 @@ import {
     LunchMenuService
 } from '../../services/index';
 import {
-    ILunchMenu,
+    ILunchDailyMenu,
     OrderDishGroupModel,
-    OrderLunchModel
+    OrderLunchModel,
+    ILunchWeekMenu
 } from '../../models/index';
 import { Utils } from '../../services/utils';
-import { lunchMenuMock } from '../../../../mocks/dashboard/lunchMenuMock';
 
 @Component({
     selector : 'lunch-menu',
     styles   : [
-        require('./lunch-menu.component.scss')
+        require('./lunch-daily-menu.component.scss')
     ],
-    template : require('./lunch-menu.component.html'),
+    template : require('./lunch-daily-menu.component.html'),
     providers: [
         Utils
     ]
 })
-
 export class LunchMenuComponent implements OnInit, OnDestroy {
     private getMenuSubscription: Subscription;
     private lunchDayName: string;
-    private menu: ILunchMenu;
+    private menu: ILunchDailyMenu;
     private orderLunch: OrderLunchModel;
 
     constructor(private lunchMenuService: LunchMenuService,
@@ -40,7 +39,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        //this.placeMockMenu();
+        this.orderLunch = new OrderLunchModel(`${new Date()}`, [] as OrderDishGroupModel[]);
         this.activatedRoute.params
             .map(params => params.day)
             .subscribe((lunchDayName: string) => {
@@ -63,22 +62,21 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
         return this.lunchOrderService.getDishGroupOrder(dishGroupName, this.orderLunch) || {} as OrderDishGroupModel;
     }
 
-    private isEmpty(): boolean {
-        return !Boolean(this.menu && this.menu.dishGroupList);
+    public isEmpty(): boolean {
+        return !Boolean(this.menu && this.menu.dishGroup);
     }
 
     private getMenu(): void {
-        this.getMenuSubscription = this.lunchMenuService.getMenu().subscribe(
-            (lunchMenu: ILunchMenu) => {
-                if (lunchMenu) {
-                    this.menu = lunchMenu;
-                }
+        this.getMenuSubscription = this.lunchMenuService.LunchMenu$
+            .subscribe((lunchMenu: ILunchWeekMenu) => {
+                this.menu = this.lunchMenuService.getDailyMenu(this.lunchDayName, lunchMenu);
+                this.orderLunch.date = this.menu.date;
             });
     }
 
     private getOrder(): void {
         this.getMenuSubscription = this.lunchOrderService.getOrderByDay(this.lunchDayName).subscribe(
-            (order: OrderLunchModel) => {
+            (order: OrderLunchModel | null) => {
                 if (order) {
                     this.orderLunch = order;
                 }
@@ -97,29 +95,29 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
      * @override
      * temporary mock solution
      */
-    private placeMockMenu(): void {
-        this.lunchMenuService.placeMenu(lunchMenuMock).subscribe(
-            (resp: any) => {
-                console.log('placeMockMenu', resp);
-            });
-    }
+    //private placeMockMenu(): void {
+    //    this.lunchMenuService.placeMenu(lunchMenuMock).subscribe(
+    //        (resp: any) => {
+    //            console.log('placeMockMenu', resp);
+    //        });
+    //}
 
     private addOrderDishGroupIntoOrder(orderDishGroup: OrderDishGroupModel): void {
-        if (this.isOrderLunchContainOrderGroup(this.orderLunch, orderDishGroup)) {
+        if (this.isOrderLunchContainOrderGroup(orderDishGroup)) {
             this.replaceOrderGroup(orderDishGroup);
         } else {
-            this.orderLunch.dishOrdersList.push(orderDishGroup);
+            this.orderLunch.dishList.push(orderDishGroup);
         }
     }
 
-    private isOrderLunchContainOrderGroup(orderLunch: OrderLunchModel, orderGroup: OrderDishGroupModel): boolean {
-        return orderLunch.dishOrdersList.some((lunchOrderGroup: any) => {
-            return lunchOrderGroup.name === orderGroup.name;
-        });
+    private isOrderLunchContainOrderGroup(orderGroup: OrderDishGroupModel): boolean {
+        return this.orderLunch && this.orderLunch.dishList
+            ? this.orderLunch.dishList.some((lunchOrderGroup: any) => lunchOrderGroup.name === orderGroup.name)
+            : false;
     }
 
     private replaceOrderGroup(orderGroup: OrderDishGroupModel): void {
-        this.orderLunch.dishOrdersList.map((lunchOrderGroup: OrderDishGroupModel) => {
+        this.orderLunch.dishList.map((lunchOrderGroup: OrderDishGroupModel) => {
             if (lunchOrderGroup && lunchOrderGroup.name === orderGroup.name) {
                 lunchOrderGroup.dishList = orderGroup.dishList;
             }

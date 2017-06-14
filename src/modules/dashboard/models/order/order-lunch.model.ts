@@ -5,13 +5,13 @@ export class OrderLunchModel {
     id: string;
     name: string;
     status: boolean;
-    date: Date;
-    dishOrdersList: OrderDishGroupModel[] | null;
+    date: string;
+    dishList: OrderDishGroupModel[] | null;
     priceInfo: IPriceInfo;
 
-    constructor(date?: Date, dishOrdersList?: OrderDishGroupModel[]) {
+    constructor(date?: string, dishOrdersList?: OrderDishGroupModel[]) {
         this.status = false;
-        this.date = date || new Date();
-        this.dishOrdersList = dishOrdersList || [] as OrderDishGroupModel[];
+        this.date = date || new Date().toDateString();
+        this.dishList = dishOrdersList || [] as OrderDishGroupModel[];
     }
 }

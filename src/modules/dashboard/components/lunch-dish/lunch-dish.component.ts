@@ -28,7 +28,6 @@ export class LunchDishComponent implements OnInit {
     private orderDish: OrderDishModel;
 
     public ngOnInit(): void {
-        console.log('LunchDishComponent', this.dishOrder, this.isDemandFulfilled);
     }
 
     public addOrderDish(): void {

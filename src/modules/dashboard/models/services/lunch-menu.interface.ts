@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs/Observable';
 import {
-    ILunchMenu,
+    ILunchDailyMenu,
     ILunchDishGroup,
+    ILunchWeekMenu,
     ILunchDish
 } from '../lunch/index';
 
 export interface ILunchMenuService {
-    getMenu(): Observable<ILunchMenu>;
-    placeMenu(menu: ILunchMenu): Observable<any>;
+    getMenu(): Observable<ILunchWeekMenu>;
+    placeMenu(menu: ILunchWeekMenu): Observable<any>;
     placeDishesGroup?(dishesGroup: ILunchDishGroup): Observable<any>;
     placeDish?(dish: ILunchDish): Observable<any>;
     clearMenu?(menuId: string): Observable<any>;

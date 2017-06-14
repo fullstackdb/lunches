@@ -1,4 +1,4 @@
-import { ILunchMenu } from '../../modules/dashboard/models/lunch/lunch-menu.interface';
+import { ILunchDailyMenu } from '../../modules/dashboard/models/lunch/lunch-menu.interface';
 import { ILunchDishGroup } from '../../modules/dashboard/models/lunch/lunch-dish-group.interface';
 import { ILunchDish } from '../../modules/dashboard/models/lunch/lunch-dish.interface';
 
@@ -29,15 +29,18 @@ class LunchDishGroupMock implements ILunchDishGroup {
     }
 }
 
-class LunchMenuMock implements ILunchMenu {
+class LunchMenuMock implements ILunchDailyMenu {
+    date: string;
+    dayFriendlyName: string;
+    dayOfWeek: number;
+    dishGroup: ILunchDishGroup[];
     id: string;
-    dishGroupList: ILunchDishGroup[];
     name: string;
 
     constructor(name: string, id?: number, dishGroupList?: ILunchDishGroup[]) {
         this.name = name;
-        this.id = id.toString();
-        this.dishGroupList = dishGroupList;
+        this.id = id ? id.toString() : `${name}-1`;
+        this.dishGroup = dishGroupList;
     }
 }
 

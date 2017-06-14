@@ -2,6 +2,7 @@ import { ISignUpForm } from './sign-up-form.interface';
 
 export class User {
     id: string;
+    tokenId: string;
     name: string;
     email: string;
     pass: string;

@@ -60,6 +60,10 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
         return Boolean(!this.orderDishGroup.dishList.length);
     }
 
+    public hasDishes(): boolean {
+        return Boolean(this.dishGroup && this.dishGroup.dishes);
+    }
+
     public showGroupDishes(): void {
         this._isGroupDishesVisible = !this._isGroupDishesVisible;
     }

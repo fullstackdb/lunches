@@ -1,10 +1,18 @@
 import {
-    Component, OnDestroy,
+    Component,
+    OnDestroy,
     OnInit
 } from '@angular/core';
-import { LunchOrderService } from '../../services/lunch-order.service';
 import { Subscription } from 'rxjs/Subscription';
-import { OrderLunchModel } from '../../models/order/order-lunch.model';
+
+import {
+    LunchOrderService,
+    LunchMenuService
+} from '../../services/index';
+import {
+    OrderLunchModel,
+    ILunchWeekMenu
+} from '../../models/index';
 
 @Component({
     selector: 'lunch-table',
@@ -13,26 +21,41 @@ import { OrderLunchModel } from '../../models/order/order-lunch.model';
     ],
     template: require('./lunch-table.component.html')
 })
-
 export class LunchTableComponent implements OnInit, OnDestroy {
-    getOrderSubscription: Subscription;
-    orderList: any[];
+    private getMenuSubscription: Subscription;
+    private getOrderSubscription: Subscription;
+    private orderLunch: OrderLunchModel[];
+    private menu: ILunchWeekMenu;
 
-    constructor(private lunchService: LunchOrderService) {
+    constructor(private lunchMenuService: LunchMenuService,
+                private lunchOrderService: LunchOrderService,) {
     }
 
-    ngOnInit() {
-        this.getOrderList();
+    ngOnInit(): void {
+        this.getMenu();
+        this.getOrder();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
+        this.getMenuSubscription.unsubscribe();
         this.getOrderSubscription.unsubscribe();
     }
 
-    private getOrderList(): void {
-        this.getOrderSubscription = this.lunchService.getOrderList().subscribe(
-            (orderList: any[]) => {
-                this.orderList = orderList;
+    private getMenu(): void {
+        this.getMenuSubscription = this.lunchMenuService.getMenu().subscribe(
+            (lunchMenu: ILunchWeekMenu) => {
+                if (lunchMenu) {
+                    this.menu = lunchMenu;
+                }
+            });
+    }
+
+    private getOrder(): void {
+        this.getOrderSubscription = this.lunchOrderService.getOrderList().subscribe(
+            (order: OrderLunchModel[]) => {
+                if (order) {
+                    this.orderLunch = order;
+                }
             });
     }
 }

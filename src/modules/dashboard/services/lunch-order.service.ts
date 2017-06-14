@@ -52,7 +52,7 @@ export class LunchOrderService implements ILunchOrderService {
 
     public getDishGroupOrder(dishGroupName: string, orderLunch: OrderLunchModel): OrderDishGroupModel | undefined {
         return orderLunch ?
-            orderLunch.dishOrdersList.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.name === dishGroupName)[0] :
+            orderLunch.dishList.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.name === dishGroupName)[0] :
             undefined;
     }
 }

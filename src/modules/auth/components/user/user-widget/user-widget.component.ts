@@ -20,11 +20,10 @@ export class UserWidgetComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.userSubscription = this.userService.ActiveUser$.subscribe(
             (user: User) => {
-                console.log('UserWidgetComponent', user);
                 this.user = user;
             },
             (err: any) => {
-                console.log('UserWidgetComponent', err);
+                console.error('UserWidgetComponent', err);
             }
         );
     }
