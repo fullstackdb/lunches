@@ -20,7 +20,6 @@ import {} from '../../models/lunch/lunch-dish.interface';
 })
 
 export class LunchDishGroupComponent implements OnInit, OnChanges {
-    @Input() date: Date;
     @Input() dishGroup: ILunchDishGroup;
     @Input() order: OrderDishGroupModel;
 

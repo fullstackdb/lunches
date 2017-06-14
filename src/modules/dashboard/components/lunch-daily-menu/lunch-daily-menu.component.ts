@@ -6,13 +6,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import {
     LunchOrderService,
-    LunchMenuService
+    LunchMenuService,
+    LunchDaysService
 } from '../../services/index';
 import {
     ILunchDailyMenu,
     OrderDishGroupModel,
     OrderLunchModel,
-    ILunchWeekMenu
+    ILunchWeekMenu,
+    ILunchDay
 } from '../../models/index';
 import { Utils } from '../../services/utils';
 
@@ -27,13 +29,14 @@ import { Utils } from '../../services/utils';
     ]
 })
 export class LunchMenuComponent implements OnInit, OnDestroy {
-    private getMenuSubscription: Subscription;
-    private lunchDayName: string;
+    private lunchDay: ILunchDay | null;
     private menu: ILunchDailyMenu;
     private orderLunch: OrderLunchModel;
+    private getMenuSubscription: Subscription;
 
     constructor(private lunchMenuService: LunchMenuService,
                 private lunchOrderService: LunchOrderService,
+                private lunchDaysService: LunchDaysService,
                 private activatedRoute: ActivatedRoute,
                 private utils: Utils) {
     }
@@ -43,7 +46,8 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
         this.activatedRoute.params
             .map(params => params.day)
             .subscribe((lunchDayName: string) => {
-                this.lunchDayName = lunchDayName;
+                this.lunchDay = this.lunchDaysService.getDayInfoByName(lunchDayName);
+                console.log('LunchMenuComponent ', lunchDayName, this.lunchDay);
                 this.getMenu();
                 this.getOrder();
             });
@@ -51,6 +55,10 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.getMenuSubscription.unsubscribe();
+    }
+
+    public isEmpty(): boolean {
+        return !Boolean(this.menu && this.menu.dishGroup);
     }
 
     public onOrderDishGroupPlaced(orderDishGroup: OrderDishGroupModel): void {
@@ -62,20 +70,16 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
         return this.lunchOrderService.getDishGroupOrder(dishGroupName, this.orderLunch) || {} as OrderDishGroupModel;
     }
 
-    public isEmpty(): boolean {
-        return !Boolean(this.menu && this.menu.dishGroup);
-    }
-
     private getMenu(): void {
         this.getMenuSubscription = this.lunchMenuService.LunchMenu$
             .subscribe((lunchMenu: ILunchWeekMenu) => {
-                this.menu = this.lunchMenuService.getDailyMenu(this.lunchDayName, lunchMenu);
+                this.menu = this.lunchMenuService.getDailyMenu(this.lunchDay.dayFriendlyName, lunchMenu);
                 this.orderLunch.date = this.menu.date;
             });
     }
 
     private getOrder(): void {
-        this.getMenuSubscription = this.lunchOrderService.getOrderByDay(this.lunchDayName).subscribe(
+        this.getMenuSubscription = this.lunchOrderService.getOrderByDay(this.lunchDay.dayFriendlyName).subscribe(
             (order: OrderLunchModel | null) => {
                 if (order) {
                     this.orderLunch = order;

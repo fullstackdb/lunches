@@ -10,9 +10,9 @@ import { ApiLunchMenuService } from './api-lunch-menu.service';
 import {
     ILunchMenuService,
     ILunchDailyMenu,
-    ILunchWeekMenu,
-    ILunchDay
+    ILunchWeekMenu
 } from '../models/index';
+import { LunchDaysService } from './lunch-days.service';
 
 @Injectable()
 export class LunchMenuService implements ILunchMenuService {
@@ -22,13 +22,15 @@ export class LunchMenuService implements ILunchMenuService {
     public LunchMenu$ = this.lunchMenuSource.asObservable();
 
     constructor(private apiService: ApiLunchMenuService,
-                private userService: UserService) {
+                private userService: UserService,
+                private lunchDaysService: LunchDaysService) {
         this.userID = userService.user.tokenId;
     }
 
     public getMenu(): Observable<ILunchWeekMenu> {
         return this.apiService.getMenu(this.userID)
             .map((lunchMenu: ILunchWeekMenu) => {
+                this.lunchDaysService.setLunchDays(lunchMenu);
                 this.lunchMenuSource.next(lunchMenu);
                 return lunchMenu;
             });
@@ -36,24 +38,12 @@ export class LunchMenuService implements ILunchMenuService {
 
     public getDailyMenu(dayFriendlyName: string, lunchMenu: ILunchWeekMenu): ILunchDailyMenu {
         return lunchMenu.orderList.filter((lunchDay: ILunchDailyMenu) => {
-            return lunchDay.dayFriendlyName.toLowerCase() === dayFriendlyName.toLowerCase()
+            return lunchDay.dayFriendlyName.toLowerCase() === dayFriendlyName.toLowerCase();
         })[0];
     }
 
     public placeMenu(menu: ILunchWeekMenu): Observable<any> {
         return this.apiService.placeMenu(this.url, menu);
-    }
-
-    public getDaysList(lunchMenu: ILunchWeekMenu): ILunchDay[] | null {
-        return lunchMenu && lunchMenu.orderList
-            ? lunchMenu.orderList.map((lunchDailyMenu: ILunchDailyMenu) => {
-                return {
-                    date           : lunchDailyMenu.date,
-                    dayFriendlyName: lunchDailyMenu.dayFriendlyName,
-                    dayOfWeek      : lunchDailyMenu.dayOfWeek
-                };
-            })
-            : null;
     }
 
     //public placeDishesGroup(dishesGroup: ILunchDishGroup): Observable<any> {

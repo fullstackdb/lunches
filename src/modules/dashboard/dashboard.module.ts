@@ -18,7 +18,8 @@ import {
     LunchOrderService,
     LunchMenuService,
     ApiLunchOrderService,
-    ApiLunchMenuService
+    ApiLunchMenuService,
+    LunchDaysService
 } from './services/index';
 
 import {
@@ -52,7 +53,8 @@ const SERVICES = [
     LunchOrderService,
     LunchMenuService,
     ApiLunchOrderService,
-    ApiLunchMenuService
+    ApiLunchMenuService,
+    LunchDaysService
 ];
 
 @NgModule({

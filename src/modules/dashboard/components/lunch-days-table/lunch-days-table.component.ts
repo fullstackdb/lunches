@@ -4,9 +4,10 @@ import {
     OnInit
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { ILunchDay } from '../../models/lunch/lunch-day.interface';
-import { LunchMenuService } from '../../services/lunch-menu.service';
-import { ILunchWeekMenu } from '../../models/index';
+import { LunchDaysService } from '../../services/index';
+import {
+    ILunchDay
+} from '../../models/index';
 
 @Component({
     selector: 'days-table',
@@ -18,19 +19,21 @@ import { ILunchWeekMenu } from '../../models/index';
 
 export class DaysTableComponent implements OnInit, OnDestroy {
     private daysList: ILunchDay[];
-    private getMenuSubscription: Subscription;
+    private daysListSubscription: Subscription;
 
-    constructor(private lunchMenuService: LunchMenuService) {
+    constructor(private lunchDaysService: LunchDaysService) {
     }
 
     ngOnInit(): void {
-        this.getMenuSubscription = this.lunchMenuService.LunchMenu$
-            .subscribe((lunchMenu: ILunchWeekMenu) => {
-                this.daysList = this.lunchMenuService.getDaysList(lunchMenu);
+        this.daysListSubscription = this.lunchDaysService.DaysList$
+            .subscribe((lunchMenu: ILunchDay[]) => {
+                if (lunchMenu) {
+                    this.daysList = lunchMenu;
+                }
             });
     }
 
     ngOnDestroy(): void {
-        this.getMenuSubscription.unsubscribe();
+        this.daysListSubscription.unsubscribe();
     }
 }
