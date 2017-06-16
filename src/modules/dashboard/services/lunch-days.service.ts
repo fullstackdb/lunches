@@ -37,8 +37,8 @@ export class LunchDaysService implements ILunchDaysService {
     }
 
     private static getDaysList(lunchMenu: ILunchWeekMenu): ILunchDay[] | null {
-        return lunchMenu && lunchMenu.orderList
-            ? lunchMenu.orderList.map((lunchDailyMenu: ILunchDailyMenu) => {
+        return lunchMenu && lunchMenu.dayMenuList
+            ? lunchMenu.dayMenuList.map((lunchDailyMenu: ILunchDailyMenu) => {
                 return {
                     date           : lunchDailyMenu.date,
                     dayFriendlyName: lunchDailyMenu.dayFriendlyName,

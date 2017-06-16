@@ -2,6 +2,7 @@
     <lunch-dish-group *ngFor="let dishGroup of menu.dishGroup"
                       [dishGroup]="dishGroup"
                       [order]="getDishGroupOrder(dishGroup.name)"
-                      (orderDishGroupPlaced)="onOrderDishGroupPlaced($event)">
+                      (orderDishGroupPlaced)="onOrderDishGroupPlaced($event)"
+                      (orderDishGroupRemoved)="onOrderDishGroupRemoved($event)">
     </lunch-dish-group>
 </section><!-- /.lunch-menu -->

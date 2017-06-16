@@ -2,7 +2,7 @@ import {
     Component,
     Input
 } from '@angular/core';
-import { ILunchDay } from '../../models/lunch/lunch-day.interface';
+import { ILunchDay } from '../../../models/lunch/lunch-day.interface';
 
 @Component({
     selector: 'lunch-day',

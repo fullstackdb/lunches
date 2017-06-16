@@ -4,10 +4,10 @@ import {
     OnInit
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { LunchDaysService } from '../../services/index';
+import { LunchDaysService } from '../../../services/index';
 import {
     ILunchDay
-} from '../../models/index';
+} from '../../../models/index';
 
 @Component({
     selector: 'days-table',

@@ -30,19 +30,22 @@ export class ApiAuthService implements IApiAuthService {
     }
 
     signIn(email: string, password: string): Observable<User> {
-        return this.http.post(`http://185.22.232.203:8080/user/login`, {email: email, pass: password})
+        return this.http.post(`http://192.168.1.60:8080/user/login`, {email: email, pass: password})
             .map(ApiAuthService.extractData)
             .catch(ApiAuthService.handleError);
     }
 
     signUp(user: User): Observable<User> {
-        return this.http.post(`http://185.22.232.203:8080/user/register`, user)
+        return this.http.post(`http://192.168.1.60:8080/user/register`, user)
             .map(ApiAuthService.extractData)
             .catch(ApiAuthService.handleError);
     }
 
-    signOut(): void {
+    signOut(userTokenId: string): Observable<any> {
         this.localStorageService.delete('user');
+        return this.http.post(`http://192.168.1.60:8080/user/logOut`, {tokenId: userTokenId})
+            .map(ApiAuthService.extractData)
+            .catch(ApiAuthService.handleError);
     }
 
 }

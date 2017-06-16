@@ -37,7 +37,7 @@ export class LunchMenuService implements ILunchMenuService {
     }
 
     public getDailyMenu(dayFriendlyName: string, lunchMenu: ILunchWeekMenu): ILunchDailyMenu {
-        return lunchMenu.orderList.filter((lunchDay: ILunchDailyMenu) => {
+        return lunchMenu.dayMenuList.filter((lunchDay: ILunchDailyMenu) => {
             return lunchDay.dayFriendlyName.toLowerCase() === dayFriendlyName.toLowerCase();
         })[0];
     }

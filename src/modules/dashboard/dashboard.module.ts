@@ -6,7 +6,8 @@ import {
     MdButtonModule,
     MdIconModule,
     MdGridListModule,
-    MdCardModule
+    MdCardModule,
+    MdProgressSpinnerModule
 } from '@angular/material';
 
 import { NavigationModule } from '../navigation/navigation.module';
@@ -28,7 +29,10 @@ import {
     LunchDayComponent,
     LunchMenuComponent,
     LunchDishGroupComponent,
-    LunchDishComponent
+    LunchDishComponent,
+    AllUsersOrderComponent,
+    CurrentUserOrderComponent,
+    MainDashboardComponent
 } from './components/index';
 
 const MATERIAL_MODULES = [
@@ -36,7 +40,8 @@ const MATERIAL_MODULES = [
     MdButtonModule,
     MdIconModule,
     MdGridListModule,
-    MdCardModule
+    MdCardModule,
+    MdProgressSpinnerModule
 ];
 
 const COMPONENTS = [
@@ -45,7 +50,10 @@ const COMPONENTS = [
     LunchDayComponent,
     LunchMenuComponent,
     LunchDishGroupComponent,
-    LunchDishComponent
+    LunchDishComponent,
+    AllUsersOrderComponent,
+    CurrentUserOrderComponent,
+    MainDashboardComponent
 ];
 
 const SERVICES = [

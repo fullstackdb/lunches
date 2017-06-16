@@ -7,7 +7,7 @@ import {
 import {
     ILunchDish,
     OrderDishModel
-} from '../../models/index';
+} from '../../../models/index';
 
 @Component({
     selector: 'lunch-dish',
@@ -18,37 +18,26 @@ import {
 })
 
 export class LunchDishComponent implements OnInit {
-    @Input() date: Date;
     @Input() dish: ILunchDish;
-    @Input() dishOrder: OrderDishModel | null;
     @Input() isDemandFulfilled: boolean;
+    @Input() isActive: boolean;
     @Output() orderDishPlaced: EventEmitter<OrderDishModel> = new EventEmitter<OrderDishModel>();
     @Output() orderDishRemoved: EventEmitter<OrderDishModel> = new EventEmitter<OrderDishModel>();
 
     private orderDish: OrderDishModel;
+    private isFrozen: boolean = false;
 
     public ngOnInit(): void {
+        this.orderDish = new OrderDishModel(this.dish.name);
     }
 
     public addOrderDish(): void {
-        this.dish.isActive = true;
-        this.createOrderDish();
+        this.isFrozen = true;
         this.orderDishPlaced.emit(this.orderDish);
     }
 
     public removeOrderDish(): void {
-        this.dish.isActive = false;
-        this.createOrderDish();
-        this.orderDishRemoved.emit(this.orderDish);
+        this.isFrozen = false;
+        this.orderDishRemoved.emit();
     }
-
-    public isActive(): boolean {
-        return Boolean(this.dishOrder);
-    }
-
-    private createOrderDish(): void {
-        this.orderDish = this.dishOrder || new OrderDishModel(this.date, this.dish);
-        this.orderDish.dish.isActive = this.dish.isActive;
-    }
-
 }
