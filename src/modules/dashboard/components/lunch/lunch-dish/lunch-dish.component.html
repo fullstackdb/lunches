@@ -10,16 +10,13 @@
     <!--</md-card-content>-->
     <md-card-actions>
         <button md-button
-                *ngIf="!isActive && !isFrozen"
+                *ngIf="!isActive"
                 (click)="addOrderDish()"
                 [disabled]="!isDemandFulfilled">
             CHOOSE
         </button>
-        <div *ngIf="isFrozen" class="load--spinner">
-            <md-spinner></md-spinner>
-        </div>
         <button md-button
-                *ngIf="isActive && !isFrozen"
+                *ngIf="isActive"
                 (click)="removeOrderDish()">
             REMOVE
         </button>

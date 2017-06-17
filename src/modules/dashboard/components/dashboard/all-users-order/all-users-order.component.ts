@@ -25,6 +25,7 @@ export class AllUsersOrderComponent implements OnInit, OnDestroy {
     private allUsersOrderSubscription: Subscription;
     private allUsersOrder: IOrderAllUsersLunches;
     public availableDishGroupList: {name: string;}[];
+    arr: any[] = [1,2,3, null,5];
 
     constructor(private lunchOrderService: LunchOrderService,
                 private activatedRoute: ActivatedRoute) {
