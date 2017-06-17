@@ -8,13 +8,15 @@
             <tr *ngIf="availableDishGroupList">
                 <th>#</th>
                 <th>Name</th>
-                <th *ngFor="let dishGroup of availableDishGroupList">{{dishGroup}}</th>
+                <th *ngFor="let dishGroup of availableDishGroupList">{{dishGroup.name}}</th>
             </tr>
             <tr *ngFor="let customer of allUsersOrder.usersLunchesList; let i = index">
                 <td>{{i+1}}</td>
                 <td>{{customer.userName}}</td>
                 <td *ngFor="let dishGroupOrder of customer.userOrder">
-                    {{dishGroupOrder.dish.name}}
+                    <ng-template [ngIf]="dishGroupOrder && dishGroupOrder.dish">
+                        {{dishGroupOrder.dish.name}}
+                    </ng-template>
                 </td>
             </tr>
         </table>

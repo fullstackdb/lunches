@@ -55,9 +55,9 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.getMenuSubscription.unsubscribe();
-        this.getDaysListSubscription.unsubscribe();
-        this.getOrderSubscription.unsubscribe();
+        //this.getMenuSubscription.unsubscribe();
+        //this.getDaysListSubscription.unsubscribe();
+        //this.getOrderSubscription.unsubscribe();
     }
 
     public isEmpty(): boolean {
