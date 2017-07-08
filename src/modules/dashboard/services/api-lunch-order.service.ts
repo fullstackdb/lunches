@@ -37,38 +37,38 @@ export class ApiLunchOrderService {
     }
 
     getOrderList(userTokenId: string): Observable<IOrderDailyLunch[]> {
-        return this.http.post(`http://192.168.1.60:8080/order/day/user`, {tokenId: userTokenId})
+        return this.http.post(`http://185.22.232.203/order/day/user`, {tokenId: userTokenId})
             .map(ApiLunchOrderService.extractData)
             .catch(ApiLunchOrderService.handleError);
         //return this.localStorageService.get<IOrderDailyLunch[]>(url);
     }
 
     getOrderByDate(userTokenId: string, orderDate: string): Observable<IOrderDailyLunch> {
-        return this.http.post(`http://192.168.1.60:8080/order/day/user`, {tokenId: userTokenId, date: orderDate})
+        return this.http.post(`http://185.22.232.203/order/day/user`, {tokenId: userTokenId, date: orderDate})
             .map(ApiLunchOrderService.extractData)
             .catch(ApiLunchOrderService.handleError);
     }
 
     getAllUsersOrderCurrentDate(): Observable<IOrderAllUsersLunches> {
-        return this.http.get(`http://192.168.1.60:8080/order/all/today`)
+        return this.http.get(`http://185.22.232.203/order/all/today`)
             .map(ApiLunchOrderService.extractData)
             .catch(ApiLunchOrderService.handleError);
     }
 
     getAllUsersOrderNextDate(): Observable<IOrderAllUsersLunches> {
-        return this.http.get(`http://192.16 8.1.60:8080/order/all/next`)
+        return this.http.get(`http://185.22.232.203/order/all/next`)
             .map(ApiLunchOrderService.extractData)
             .catch(ApiLunchOrderService.handleError);
     }
 
     placeOrder(order: OrderLunchDayModel): Observable<IOrderDishGroupResponse> {
-        return this.http.post(`http://192.168.1.60:8080/order/day/save`, order)
+        return this.http.post(`http://185.22.232.203/order/day/save`, order)
             .map(ApiLunchOrderService.extractData)
             .catch(ApiLunchOrderService.handleError);
     }
 
     removeOrder(order: OrderLunchDayModel): Observable<IOrderDishGroupResponse> {
-        return this.http.post(`http://192.168.1.60:8080/order/day/remove`, order)
+        return this.http.post(`http://185.22.232.203/order/day/remove`, order)
             .map(ApiLunchOrderService.extractData)
             .catch(ApiLunchOrderService.handleError);
     }

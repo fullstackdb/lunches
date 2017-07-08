@@ -1,4 +1,4 @@
-<section class="lunch-menu" *ngIf="!isEmpty()">
+<section class="lunch-menu" *ngIf="hasMenu()">
     <lunch-dish-group *ngFor="let dishGroup of menu.dishGroup"
                       [dishGroup]="dishGroup"
                       [order]="getDishGroupOrder(dishGroup.name)"

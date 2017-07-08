@@ -1,4 +1,11 @@
-.lunch-day--active {
-  border: 2px solid black;
-  outline: none;
+.ln-nav {
+  list-style-type: none;
+  margin: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+
+  &--vertical {}
+  &--clear {}
+  &--white {}
 }

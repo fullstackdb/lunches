@@ -7,7 +7,8 @@ import {
     MdIconModule,
     MdGridListModule,
     MdCardModule,
-    MdProgressSpinnerModule
+    MdProgressSpinnerModule,
+    MdSelectModule
 } from '@angular/material';
 
 import { NavigationModule } from '../navigation/navigation.module';
@@ -24,7 +25,7 @@ import {
 } from './services/index';
 
 import {
-    LunchTableComponent,
+    DashboardComponent,
     DaysTableComponent,
     LunchDayComponent,
     LunchMenuComponent,
@@ -32,7 +33,7 @@ import {
     LunchDishComponent,
     AllUsersOrderComponent,
     CurrentUserOrderComponent,
-    MainDashboardComponent
+    DashboardRouterComponent
 } from './components/index';
 
 const MATERIAL_MODULES = [
@@ -41,11 +42,12 @@ const MATERIAL_MODULES = [
     MdIconModule,
     MdGridListModule,
     MdCardModule,
-    MdProgressSpinnerModule
+    MdProgressSpinnerModule,
+    MdSelectModule
 ];
 
 const COMPONENTS = [
-    LunchTableComponent,
+    DashboardComponent,
     DaysTableComponent,
     LunchDayComponent,
     LunchMenuComponent,
@@ -53,7 +55,7 @@ const COMPONENTS = [
     LunchDishComponent,
     AllUsersOrderComponent,
     CurrentUserOrderComponent,
-    MainDashboardComponent
+    DashboardRouterComponent
 ];
 
 const SERVICES = [

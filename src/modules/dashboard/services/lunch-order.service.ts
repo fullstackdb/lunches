@@ -21,8 +21,10 @@ export class LunchOrderService implements ILunchOrderService {
     private userID: string;
     private url: string;
     private currentOrderSource = new ReplaySubject<IOrderDailyLunch>(1);
+    private requestedDishesSource = new ReplaySubject<OrderDishGroupModel[]>(1);
 
     public CurrentOrder$ = this.currentOrderSource.asObservable();
+    public RequestedDishes$ = this.requestedDishesSource.asObservable();
 
     constructor(private apiService: ApiLunchOrderService, userService: UserService) {
         this.userID = userService.user.tokenId;
@@ -78,5 +80,36 @@ export class LunchOrderService implements ILunchOrderService {
         return orderLunch && orderLunch.orderDay ?
             orderLunch.orderDay.dishGroup.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.name === dishGroupName)[0] :
             undefined;
+    }
+
+    public shareRequestedDishes(requestedDishes: OrderDishGroupModel[]): void {
+        this.requestedDishesSource.next(requestedDishes);
+    }
+
+    public addOrderDishGroup(orderDishGroupList: OrderDishGroupModel[],
+                             orderDishGroup: OrderDishGroupModel): OrderDishGroupModel[] {
+        if (this.isOrderLunchContainOrderGroup(orderDishGroupList, orderDishGroup)) {
+            return this.replaceOrderGroup(orderDishGroupList, orderDishGroup);
+        } else {
+            orderDishGroupList.push(orderDishGroup);
+            return orderDishGroupList;
+        }
+    }
+
+    private isOrderLunchContainOrderGroup(orderDishGroupList: OrderDishGroupModel[],
+                                          orderGroup: OrderDishGroupModel): boolean {
+        return orderDishGroupList
+            ? orderDishGroupList.some((lunchOrderGroup: OrderDishGroupModel) => lunchOrderGroup.name === orderGroup.name)
+            : false;
+    }
+
+    private replaceOrderGroup(orderDishGroupList: OrderDishGroupModel[],
+                              orderGroup: OrderDishGroupModel): OrderDishGroupModel[] {
+        return orderDishGroupList.map((lunchOrderGroup: OrderDishGroupModel) => {
+            if (lunchOrderGroup && lunchOrderGroup.name === orderGroup.name) {
+                lunchOrderGroup.dish = orderGroup.dish;
+            }
+            return lunchOrderGroup;
+        });
     }
 }

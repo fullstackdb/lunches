@@ -32,7 +32,7 @@ export class ApiLunchMenuService {
     }
 
     public getMenu(userTokenId: string): Observable<ILunchWeekMenu> {
-        return this.http.post(`http://192.168.1.60:8080/menu/current`, {tokenId: userTokenId})
+        return this.http.post(`http://185.22.232.203/menu/current`, {tokenId: userTokenId})
             .map(ApiLunchMenuService.extractData)
             .catch(ApiLunchMenuService.handleError);
     }

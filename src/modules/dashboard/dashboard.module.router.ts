@@ -3,21 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/guards/auth-guard';
 
 import {
-    LunchTableComponent,
+    DashboardComponent,
     LunchMenuComponent,
-    MainDashboardComponent,
+    DashboardRouterComponent,
     AllUsersOrderComponent
 } from './components/index';
 
 const dashboardRoutes: Routes = [
     {
         path       : 'dashboard',
-        component  : LunchTableComponent,
+        component  : DashboardComponent,
         canActivate: [AuthGuard],
         children   : [
             {
                 path     : '',
-                component: MainDashboardComponent
+                component: DashboardRouterComponent
             },
             {
                 path     : ':day',
@@ -27,7 +27,7 @@ const dashboardRoutes: Routes = [
     },
     {
         path       : 'all-users-order',
-        component  : MainDashboardComponent,
+        component  : DashboardRouterComponent,
         canActivate: [AuthGuard],
         children: [
             {

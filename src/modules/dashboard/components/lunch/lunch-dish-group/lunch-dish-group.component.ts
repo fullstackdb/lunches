@@ -28,6 +28,7 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
 
     private _isGroupDishesVisible: boolean = false;
     private orderDishGroup: OrderDishGroupModel;
+    public selectedDish: string;
 
     get isGroupDishesVisible(): boolean {
         return this._isGroupDishesVisible;
@@ -51,16 +52,28 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     private isDemandFulfilled(): boolean {
-        console.log('isDemandFulfilled', this.order.dish);
         return Boolean(!this.order.dish);
-    }
-
-    public isDishActive(dishName: string): boolean {
-        return Boolean(this.order.dish && this.order.dish.name === dishName);
     }
 
     public hasDishes(): boolean {
         return Boolean(this.dishGroup && this.dishGroup.dishes);
+    }
+
+    public cleanSelected(): void {
+        console.log(`cleanSelected`);
+        this.selectedDish = null;
+        this.removeDishFromGroupOrder();
+        this.orderDishGroupRemoved.emit(this.orderDishGroup);
+    }
+
+    public onDishChanged(dishName: string): void {
+        console.log(`onDishChanged`, dishName, this.order, this.orderDishGroup);
+        this.addDishIntoGroupOrder(new OrderDishModel(dishName));
+        this.orderDishGroupPlaced.emit(this.orderDishGroup);
+    }
+
+    public isDishActive(dishName: string): boolean {
+        return Boolean(this.order.dish && this.order.dish.name === dishName);
     }
 
     public showGroupDishes(): void {

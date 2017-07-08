@@ -1,8 +1,8 @@
-<md-grid-list cols="5" rowHeight="200px" *ngIf="daysList">
-    <md-grid-tile *ngFor="let day of daysList">
-        <lunch-day [day]="day"
-                   [routerLink]="['./' + day.dayFriendlyName.toLowerCase()]"
-                   routerLinkActive="lunch-day--active">
-        </lunch-day>
-    </md-grid-tile>
-</md-grid-list>
+<ul *ngIf="daysList"
+    class="ln-nav ln-nav--vertical ln-nav--clear ln-nav--white lunch-days-list">
+    <lunch-day *ngFor="let day of daysList"
+        [day]="day"
+        [routerLink]="['./' + day.dayFriendlyName.toLowerCase()]"
+        routerLinkActive="ln-nav__item--active">
+    </lunch-day>
+</ul><!-- /.lunch-days-list -->

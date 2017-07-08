@@ -19,6 +19,7 @@ import {
     OrderLunchDayModel
 } from '../../../models/index';
 import { Utils } from '../../../services/utils';
+import { lunchMenuMock } from '../../../../../mocks/dashboard/lunchMenuMock';
 
 @Component({
     selector : 'lunch-menu',
@@ -32,9 +33,11 @@ import { Utils } from '../../../services/utils';
 })
 export class LunchMenuComponent implements OnInit, OnDestroy {
     private lunchDay: ILunchDay;
-    private menu: ILunchDailyMenu;
+    private menu: ILunchDailyMenu = lunchMenuMock;
     private orderDailyLunch: IOrderDailyLunch;
     private orderDishGroupRequest: OrderLunchDayModel;
+    private orderDishGroupList: OrderDishGroupModel[];
+
     private getMenuSubscription: Subscription;
     private getOrderSubscription: Subscription;
     private getDaysListSubscription: Subscription;
@@ -52,25 +55,30 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
             .subscribe((lunchDayName: string) => {
                 this.getDayInfo(lunchDayName);
             });
+
+        // TODO remove after replacing mock
+        this.orderDishGroupRequest = new OrderLunchDayModel(`${new Date()}`);
     }
 
     ngOnDestroy(): void {
-        //this.getMenuSubscription.unsubscribe();
-        //this.getDaysListSubscription.unsubscribe();
-        //this.getOrderSubscription.unsubscribe();
+        this.getMenuSubscription.unsubscribe();
+        this.getDaysListSubscription.unsubscribe();
+        this.getOrderSubscription.unsubscribe();
     }
 
-    public isEmpty(): boolean {
-        return !Boolean(this.menu && this.menu.dishGroup);
+    public hasMenu(): boolean {
+        return Boolean(this.menu && this.menu.dishGroup);
     }
 
     public onOrderDishGroupPlaced(orderDishGroup: OrderDishGroupModel): void {
         this.orderDishGroupRequest.dishGroup = orderDishGroup;
+        this.orderDishGroupList = this.lunchOrderService.addOrderDishGroup(this.orderDishGroupList, orderDishGroup);
         this.placeOrder();
     }
 
     public onOrderDishGroupRemoved(orderDishGroup: OrderDishGroupModel): void {
         this.orderDishGroupRequest.dishGroup = orderDishGroup;
+        this.orderDishGroupList = this.lunchOrderService.addOrderDishGroup(this.orderDishGroupList, orderDishGroup);
         this.removeOrder();
     }
 
@@ -109,6 +117,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     private placeOrder(): void {
+        this.lunchOrderService.shareRequestedDishes(this.orderDishGroupList);
         this.lunchOrderService.placeOrder(this.orderDishGroupRequest).subscribe(
             (orderStatus: IOrderDishGroupResponse) => {
                 if (orderStatus.success) {
@@ -120,6 +129,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     private removeOrder(): void {
+        this.lunchOrderService.shareRequestedDishes(this.orderDishGroupList);
         this.lunchOrderService.removeOrder(this.orderDishGroupRequest).subscribe(
             (orderStatus: IOrderDishGroupResponse) => {
                 if (orderStatus.success) {
@@ -140,26 +150,5 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     //        });
     //}
 
-    //private addOrderDishGroupIntoOrder(orderDishGroup: OrderDishGroupModel): void {
-    //    if (this.isOrderLunchContainOrderGroup(orderDishGroup)) {
-    //        this.replaceOrderGroup(orderDishGroup);
-    //    } else {
-    //        this.orderLunch.dishList.push(orderDishGroup);
-    //    }
-    //}
     //
-    //private isOrderLunchContainOrderGroup(orderGroup: OrderDishGroupModel): boolean {
-    //    return this.orderLunch && this.orderLunch.dishList
-    //        ? this.orderLunch.dishList.some((lunchOrderGroup: any) => lunchOrderGroup.name === orderGroup.name)
-    //        : false;
-    //}
-    //
-    //private replaceOrderGroup(orderGroup: OrderDishGroupModel): void {
-    //    this.orderLunch.dishList.map((lunchOrderGroup: OrderDishGroupModel) => {
-    //        if (lunchOrderGroup && lunchOrderGroup.name === orderGroup.name) {
-    //            lunchOrderGroup.dishList = orderGroup.dishList;
-    //        }
-    //        return lunchOrderGroup;
-    //    });
-    //}
 }

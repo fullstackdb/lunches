@@ -15,11 +15,11 @@ import {
 @Component({
     selector: 'lunch-table',
     styles  : [
-        require('./lunch-table.component.scss')
+        require('./dashboard.component.scss')
     ],
-    template: require('./lunch-table.component.html')
+    template: require('./dashboard.component.html')
 })
-export class LunchTableComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
     private getMenuSubscription: Subscription;
     private menu: ILunchWeekMenu;
 

@@ -31,7 +31,7 @@ $ npm run build
 Commands
 --------
 
-|Script|Description|
+|Script|Description|npm run
 |---|---|
 |`npm start`|Start webpack development server @ `localhost:3000`|
 |`npm run build`|Lint, test, and build the application to `./target`|
