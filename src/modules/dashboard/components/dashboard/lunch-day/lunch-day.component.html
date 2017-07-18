@@ -6,7 +6,7 @@
     <ng-template [ngIf]="requestedDishes && requestedDishes.length">
         <section class="lunch-day__icons">
             <ng-template ngFor let-dish [ngForOf]="requestedDishes">
-                <i class="material-icons lunch-day__icons--{{dish.name.toLowerCase()}}">fiber_manual_record</i>
+                <i  mdTooltip="{{dish.name}}" class="material-icons lunch-day__icons--{{dish.name.toLowerCase()}}">fiber_manual_record</i>
             </ng-template>
         </section>
     </ng-template>

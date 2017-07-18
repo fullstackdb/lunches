@@ -8,7 +8,8 @@ import {
     MdGridListModule,
     MdCardModule,
     MdProgressSpinnerModule,
-    MdSelectModule
+    MdSelectModule,
+    MdTooltipModule
 } from '@angular/material';
 
 import { NavigationModule } from '../navigation/navigation.module';
@@ -43,7 +44,8 @@ const MATERIAL_MODULES = [
     MdGridListModule,
     MdCardModule,
     MdProgressSpinnerModule,
-    MdSelectModule
+    MdSelectModule,
+    MdTooltipModule
 ];
 
 const COMPONENTS = [
