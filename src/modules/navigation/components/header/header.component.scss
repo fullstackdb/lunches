@@ -4,3 +4,24 @@
   background: cornflowerblue;
   color: white;
 }
+.menu {
+  &--head {
+    height: 75px;
+    .menu__list {
+      list-style-type: none;
+      margin: 0;
+      padding: 20px 0;
+    }
+    .menu__item {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    .menu__item--right {
+      margin-right: 150px;
+      float:right;
+    }
+    .menu__item_link {
+      display: block;
+    }
+  }
+}

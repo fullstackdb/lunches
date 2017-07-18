@@ -9,7 +9,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 const appRoutes: Routes = [
     {
         path      : '',
-        redirectTo: '/home',
+        redirectTo: '/login',
         pathMatch : 'full'
     },
     {
@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     },
     {
         path        : 'user',
-        loadChildren: 'modules/auth/auth.module#AuthModule',
+        loadChildren: './modules/auth/auth.module#AuthModule',
         //canActivate: [UnAuthGuard]
     },
     //{

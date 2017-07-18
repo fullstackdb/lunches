@@ -1,0 +1,24 @@
+<md-card class="lunch-dish">
+    <md-card-header>
+        <md-card-title>{{dish.name}}</md-card-title>
+    </md-card-header>
+    <img md-card-image
+         class="lunch-dish__image"
+         [src]="dish.thumbnailURL || 'http://1.bp.blogspot.com/-fYzw2PFDH9k/UoTIHVIj38I/AAAAAAAAboA/K68T3RbCqiY/s800/Moussaka+Patty+Melts+800+0216.jpg'">
+    <!--<md-card-content *ngIf="dish.description">-->
+        <!--{{dish.description}}-->
+    <!--</md-card-content>-->
+    <md-card-actions>
+        <button md-button
+                *ngIf="!isActive"
+                (click)="addOrderDish()"
+                [disabled]="!isDemandFulfilled">
+            CHOOSE
+        </button>
+        <button md-button
+                *ngIf="isActive"
+                (click)="removeOrderDish()">
+            REMOVE
+        </button>
+    </md-card-actions>
+</md-card><!-- /.lunch-dish -->

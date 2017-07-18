@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { UserService, AuthService } from '../../../services/index';
 import { User } from '../../../models/index';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'user-widget',
@@ -14,17 +15,18 @@ export class UserWidgetComponent implements OnInit, OnDestroy {
     private userSubscription: Subscription;
 
     constructor(private userService: UserService,
-                private authService: AuthService) {
+                private authService: AuthService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
+
         this.userSubscription = this.userService.ActiveUser$.subscribe(
             (user: User) => {
-                console.log('UserWidgetComponent', user);
                 this.user = user;
             },
             (err: any) => {
-                console.log('UserWidgetComponent', err);
+                console.error('UserWidgetComponent', err);
             }
         );
     }
@@ -34,7 +36,12 @@ export class UserWidgetComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.authService.signOut();
+        this.authService.signOut(this.user.tokenId).subscribe((status: any) => {
+            if (status.success) {
+                console.log('logout');
+                this.router.navigate(['/home']);
+            }
+        });
     }
 
 }

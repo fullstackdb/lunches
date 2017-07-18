@@ -1,7 +1,0 @@
-<section class="lunch-menu" *ngIf="!isEmpty()">
-    <lunch-dish-group *ngFor="let dishGroup of menu.dishGroupList"
-                      [dishGroup]="dishGroup"
-                      [order]="getDishGroupOrder(dishGroup.name)"
-                      (orderDishGroupPlaced)="onOrderDishGroupPlaced($event)">
-    </lunch-dish-group>
-</section><!-- /.lunch-menu -->

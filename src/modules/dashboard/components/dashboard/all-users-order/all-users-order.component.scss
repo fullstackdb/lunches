@@ -1,0 +1,57 @@
+.all-users-order {
+  width: 980px;
+  margin: 0 auto;
+  &__title {
+    display: inline-block;
+    margin: 25px 0;
+  }
+  &__day, &__date {
+    display: inline-block;
+    float: left;
+  }
+  &__date {
+    margin-left: 25px;
+    font-size: 0.8em;
+    line-height: 2;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 0 2px #555;
+  }
+
+  tr:first-child {
+    background: #eee;
+  }
+
+  table p {
+    margin: 0;
+    font-size: 13px;
+    color: #333;
+  }
+
+  tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  td, th {
+    border-right: 1px solid #ddd;
+    font-family: 'Roboto', sans-serif;
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #777;
+    padding: 8px 0;
+    overflow: hidden;
+    word-break: normal;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  td:first-child, th:first-child {
+    width: 25px;
+  }
+}

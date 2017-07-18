@@ -3,31 +3,46 @@ import 'rxjs/add/operator/switchMap';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ILunchMenuService } from '../models/services/lunch-menu.interface';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { UserService } from '../../auth/index';
-import {
-    ILunchMenu,
-    ILunchDishGroup,
-    ILunchDish
-} from '../models/index';
 import { ApiLunchMenuService } from './api-lunch-menu.service';
+import {
+    ILunchMenuService,
+    ILunchDailyMenu,
+    ILunchWeekMenu
+} from '../models/index';
+import { LunchDaysService } from './lunch-days.service';
 
 @Injectable()
 export class LunchMenuService implements ILunchMenuService {
     private userID: string;
     private url: string;
+    private lunchMenuSource = new ReplaySubject<ILunchWeekMenu>(1);
+    public LunchMenu$ = this.lunchMenuSource.asObservable();
 
-    constructor(private apiService: ApiLunchMenuService, userService: UserService) {
-        this.userID = userService.user.id;
-        this.url = `menus`;
+    constructor(private apiService: ApiLunchMenuService,
+                private userService: UserService,
+                private lunchDaysService: LunchDaysService) {
+        this.userID = userService.user.tokenId;
     }
 
-    public getMenu(): Observable<ILunchMenu> {
-        return this.apiService.getMenu(this.url);
+    public getMenu(): Observable<ILunchWeekMenu> {
+        return this.apiService.getMenu(this.userID)
+            .map((lunchMenu: ILunchWeekMenu) => {
+                this.lunchDaysService.setLunchDays(lunchMenu);
+                this.lunchMenuSource.next(lunchMenu);
+                return lunchMenu;
+            });
     }
 
-    public placeMenu(menu: ILunchMenu): Observable<any> {
+    public getDailyMenu(dayFriendlyName: string, lunchMenu: ILunchWeekMenu): ILunchDailyMenu {
+        return lunchMenu.dayMenuList.filter((lunchDay: ILunchDailyMenu) => {
+            return lunchDay.dayFriendlyName.toLowerCase() === dayFriendlyName.toLowerCase();
+        })[0];
+    }
+
+    public placeMenu(menu: ILunchWeekMenu): Observable<any> {
         return this.apiService.placeMenu(this.url, menu);
     }
 

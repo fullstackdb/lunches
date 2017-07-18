@@ -33,8 +33,8 @@ export class AuthService {
             });
     }
 
-    signOut(): void {
-        this.apiService.signOut();
+    signOut(userTokenId: string): Observable<any> {
+        return this.apiService.signOut(userTokenId);
     }
 
     private setActiveUser(user: User): void {

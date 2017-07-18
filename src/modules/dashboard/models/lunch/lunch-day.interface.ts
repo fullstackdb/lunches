@@ -1,5 +1,5 @@
 export interface ILunchDay {
-    date: Date;
-    name: string;
-    index: number;
+    date: string;
+    dayFriendlyName: string;
+    dayOfWeek: number;
 }

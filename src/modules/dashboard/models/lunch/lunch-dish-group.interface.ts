@@ -4,5 +4,5 @@ export interface ILunchDishGroup {
     id: string;
     name: string;
     description: string;
-    dishesList: ILunchDish[];
+    dishes: ILunchDish[];
 }

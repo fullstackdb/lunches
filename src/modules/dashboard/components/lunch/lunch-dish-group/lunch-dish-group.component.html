@@ -1,0 +1,26 @@
+<ng-template [ngIf]="hasDishes()">
+    <section class="clearfix lunch-dish-group">
+        <section class="lunch-dish-group__name">
+            <!--<md-icon *ngIf="selectedDish"-->
+                    <!--style="position: relative; top: 5px;">done_all</md-icon>-->
+            {{dishGroup.name}}
+        </section>
+        <section class="lunch-dish-group__dishes">
+            <md-select [placeholder]="selectedDish ? 'Chosen food' : 'Choose food' "
+                    [name]="'food'"
+                    [(ngModel)]="selectedDish">
+                <md-option *ngFor="let dish of dishGroup.dishes"
+                        [value]="dish.name"
+                        (click)="onDishChanged(dish.name)">
+                    {{dish.name}}
+                </md-option>
+            </md-select>
+            <button md-button
+                    *ngIf="selectedDish"
+                    (click)="cleanSelected()">
+                <md-icon>close</md-icon>
+                Clean
+            </button>
+        </section>
+    </section><!-- /.lunch-dish-group -->
+</ng-template>

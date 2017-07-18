@@ -8,6 +8,7 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class ApiAuthService implements IApiAuthService {
+    mockUser: User;
 
     private static extractData(res: Response): any {
         return res.json();
@@ -27,22 +28,35 @@ export class ApiAuthService implements IApiAuthService {
 
     constructor(private localStorageService: LocalStorageService,
                 protected http: Http) {
+        this.mockUser = new User({
+            name          : `mockUser`,
+            email         : `mockUser`,
+            password      : `mockUser`,
+            repeatPassword: `mockUser`
+        });
+        this.mockUser.tokenId = `mockUser`;
     }
 
     signIn(email: string, password: string): Observable<User> {
-        return this.http.post(`http://185.22.232.203:8080/user/login`, {email: email, pass: password})
-            .map(ApiAuthService.extractData)
-            .catch(ApiAuthService.handleError);
+        return Observable.of(this.mockUser);
+        //return this.http.post(`http://185.22.232.203/user/login`, {email: email, pass: password})
+        //    .map(ApiAuthService.extractData)
+        //    .catch(ApiAuthService.handleError);
     }
 
     signUp(user: User): Observable<User> {
-        return this.http.post(`http://185.22.232.203:8080/user/register`, user)
-            .map(ApiAuthService.extractData)
-            .catch(ApiAuthService.handleError);
+        return Observable.of(this.mockUser);
+        //return this.http.post(`http://185.22.232.203/user/register`, user)
+        //    .map(ApiAuthService.extractData)
+        //    .catch(ApiAuthService.handleError);
     }
 
-    signOut(): void {
+    signOut(userTokenId: string): Observable<any> {
         this.localStorageService.delete('user');
+        return Observable.of(this.mockUser);
+        //return this.http.post(`http://185.22.232.203/user/logOut`, {tokenId: userTokenId})
+        //    .map(ApiAuthService.extractData)
+        //    .catch(ApiAuthService.handleError);
     }
 
 }

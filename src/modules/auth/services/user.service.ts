@@ -21,7 +21,6 @@ export class UserService {
     constructor(private apiUserService: ApiUserService) {
         this.apiUserService.getActiveUser().subscribe(
             (user: User | null) => {
-                console.log(user);
                 if (user !== null) {
                     this.setActiveUser(user);
                 }

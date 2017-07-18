@@ -6,7 +6,10 @@ import {
     MdButtonModule,
     MdIconModule,
     MdGridListModule,
-    MdCardModule
+    MdCardModule,
+    MdProgressSpinnerModule,
+    MdSelectModule,
+    MdTooltipModule
 } from '@angular/material';
 
 import { NavigationModule } from '../navigation/navigation.module';
@@ -18,16 +21,20 @@ import {
     LunchOrderService,
     LunchMenuService,
     ApiLunchOrderService,
-    ApiLunchMenuService
+    ApiLunchMenuService,
+    LunchDaysService
 } from './services/index';
 
 import {
-    LunchTableComponent,
+    DashboardComponent,
     DaysTableComponent,
     LunchDayComponent,
     LunchMenuComponent,
     LunchDishGroupComponent,
-    LunchDishComponent
+    LunchDishComponent,
+    AllUsersOrderComponent,
+    CurrentUserOrderComponent,
+    DashboardRouterComponent
 } from './components/index';
 
 const MATERIAL_MODULES = [
@@ -35,16 +42,22 @@ const MATERIAL_MODULES = [
     MdButtonModule,
     MdIconModule,
     MdGridListModule,
-    MdCardModule
+    MdCardModule,
+    MdProgressSpinnerModule,
+    MdSelectModule,
+    MdTooltipModule
 ];
 
 const COMPONENTS = [
-    LunchTableComponent,
+    DashboardComponent,
     DaysTableComponent,
     LunchDayComponent,
     LunchMenuComponent,
     LunchDishGroupComponent,
-    LunchDishComponent
+    LunchDishComponent,
+    AllUsersOrderComponent,
+    CurrentUserOrderComponent,
+    DashboardRouterComponent
 ];
 
 const SERVICES = [
@@ -52,7 +65,8 @@ const SERVICES = [
     LunchOrderService,
     LunchMenuService,
     ApiLunchOrderService,
-    ApiLunchMenuService
+    ApiLunchMenuService,
+    LunchDaysService
 ];
 
 @NgModule({

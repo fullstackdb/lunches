@@ -1,0 +1,27 @@
+<section class="all-users-order" *ngIf="allUsersOrder">
+    <div class="all-users-order__title" *ngIf="allUsersOrder.dayFriendlyName">
+        <h1 class="all-users-order__day">{{allUsersOrder.dayFriendlyName}}</h1>
+        <div class="all-users-order__date">{{allUsersOrder.date | date:'dd/MM/yyyy'}}</div>
+    </div><!-- /.all-users-order__title -->
+    <div class="all-users-order__body">
+        <table *ngIf="availableDishGroupList">
+            <tr *ngIf="availableDishGroupList">
+                <th>#</th>
+                <th>Name</th>
+                <th *ngFor="let dishGroup of availableDishGroupList">{{dishGroup.name}}</th>
+            </tr>
+                <tr *ngFor="let customer of allUsersOrder.usersLunchesList; let i = index">
+                    <ng-template [ngIf]="customer.userName">
+                        <td>{{i+1}}</td>
+                        <td>{{customer.userName}}</td>
+                        <td *ngFor="let dishGroupOrder of customer.userOrder">
+                            {{dishGroupOrder ? dishGroupOrder.dish.name : '-'}}
+                        </td>
+                    </ng-template>
+                    <ng-template [ngIf]="!customer.userName">
+                        <td colspan="6">-</td>
+                    </ng-template>
+                </tr>
+        </table>
+    </div><!-- /.all-users-order__body -->
+</section><!-- /.all-users -->

@@ -1,4 +1,4 @@
-import { ILunchMenu } from '../../modules/dashboard/models/lunch/lunch-menu.interface';
+import { ILunchDailyMenu } from '../../modules/dashboard/models/lunch/lunch-menu.interface';
 import { ILunchDishGroup } from '../../modules/dashboard/models/lunch/lunch-dish-group.interface';
 import { ILunchDish } from '../../modules/dashboard/models/lunch/lunch-dish.interface';
 
@@ -17,27 +17,30 @@ class LunchDishMock implements ILunchDish {
 }
 
 class LunchDishGroupMock implements ILunchDishGroup {
+    dishes: ILunchDish[];
     id: string;
     name: string;
     description: string;
-    dishesList: ILunchDish[];
 
     constructor(name: string, id?: number, dishesList?: ILunchDish[]) {
         this.name = name;
         this.id = id.toString();
-        this.dishesList = dishesList;
+        this.dishes = dishesList;
     }
 }
 
-class LunchMenuMock implements ILunchMenu {
+class LunchMenuMock implements ILunchDailyMenu {
+    date: string;
+    dayFriendlyName: string;
+    dayOfWeek: number;
+    dishGroup: ILunchDishGroup[];
     id: string;
-    dishGroupList: ILunchDishGroup[];
     name: string;
 
     constructor(name: string, id?: number, dishGroupList?: ILunchDishGroup[]) {
         this.name = name;
-        this.id = id.toString();
-        this.dishGroupList = dishGroupList;
+        this.id = id ? id.toString() : `${name}-1`;
+        this.dishGroup = dishGroupList;
     }
 }
 
@@ -55,4 +58,4 @@ const AdditionalMeal: LunchDishGroupMock = new LunchDishGroupMock('AdditionalMea
 
 const dishGroupList = [SoupMock, SideDish, Meat, Salad, AdditionalMeal];
 
-export const lunchMenuMock = new LunchMenuMock('Lviv Lunches Menu', 1, dishGroupList);
+export const lunchMenuMock = (menuName: string) => new LunchMenuMock(menuName, 1, dishGroupList);

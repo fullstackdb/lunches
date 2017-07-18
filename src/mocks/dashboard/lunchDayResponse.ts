@@ -1,13 +1,13 @@
 import { ILunchDay } from '../../modules/dashboard/models/lunch/lunch-day.interface';
 
 class LunchDayResponse implements ILunchDay {
-    date: Date = new Date();
-    name: string;
-    index: number;
+    dayFriendlyName: string;
+    dayOfWeek: number;
+    date: string = `${new Date()}`;
 
     constructor(name: string, id?: number) {
-        this.name = name;
-        this.index = id;
+        this.dayFriendlyName = name;
+        this.dayOfWeek = id;
     }
 }
 
