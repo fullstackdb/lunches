@@ -1,8 +1,10 @@
 import {
     Component,
-    Input
+    Input,
+    OnChanges
 } from '@angular/core';
 import { ILunchDay } from '../../../models/lunch/lunch-day.interface';
+import { IOrderDailyLunch, OrderDishGroupModel } from "src/modules/dashboard/models";
 
 @Component({
     selector: 'lunch-day',
@@ -12,6 +14,12 @@ import { ILunchDay } from '../../../models/lunch/lunch-day.interface';
     template: require('./lunch-day.component.html')
 })
 
-export class LunchDayComponent {
+export class LunchDayComponent implements OnChanges {
     @Input() day: ILunchDay;
+    @Input() currentOrder: IOrderDailyLunch;
+    @Input() requestedDishes: OrderDishGroupModel[];
+
+    ngOnChanges(changes: any): void {
+        // console.log('ngOnChanges', this.requestedDishes);
+    }
 }

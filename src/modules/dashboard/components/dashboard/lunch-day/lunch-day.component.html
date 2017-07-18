@@ -1,4 +1,13 @@
 <li class="ln-nav__item ln-nav__link lunch-day">
     <span class="lunch-day__name">{{day.dayFriendlyName}}</span> :
     <span class="lunch-day__date">{{day.date | date:'dd/MM/yyyy'}}</span>
+    <span class="lunch-day__date" *ngIf="currentOrder">{{currentOrder.orderDay.date}}</span>
+
+    <ng-template [ngIf]="requestedDishes && requestedDishes.length">
+        <section class="lunch-day__icons">
+            <ng-template ngFor let-dish [ngForOf]="requestedDishes">
+                <i class="material-icons lunch-day__icons--{{dish.name.toLowerCase()}}">fiber_manual_record</i>
+            </ng-template>
+        </section>
+    </ng-template>
 </li><!-- /.lunch-day -->

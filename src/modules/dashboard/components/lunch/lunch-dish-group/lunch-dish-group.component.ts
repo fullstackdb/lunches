@@ -2,7 +2,8 @@ import {
     Component,
     EventEmitter,
     Input, OnChanges, OnInit,
-    Output
+    Output,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import {
     ILunchDishGroup,
@@ -60,14 +61,12 @@ export class LunchDishGroupComponent implements OnInit, OnChanges {
     }
 
     public cleanSelected(): void {
-        console.log(`cleanSelected`);
         this.selectedDish = null;
         this.removeDishFromGroupOrder();
         this.orderDishGroupRemoved.emit(this.orderDishGroup);
     }
 
     public onDishChanged(dishName: string): void {
-        console.log(`onDishChanged`, dishName, this.order, this.orderDishGroup);
         this.addDishIntoGroupOrder(new OrderDishModel(dishName));
         this.orderDishGroupPlaced.emit(this.orderDishGroup);
     }

@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdIconModule, MdToolbarModule, MdGridListModule } from '@angular/material';
+import { 
+    MdIconModule,
+    MdToolbarModule,
+    MdGridListModule,
+    MdButtonModule
+} from '@angular/material';
 
 import { AuthModule } from '../auth/auth.module';
 
@@ -11,7 +16,8 @@ import { HeaderComponent } from './components/index';
 const MATERIAL_MODULES = [
     MdToolbarModule,
     MdIconModule,
-    MdGridListModule
+    MdGridListModule,
+    MdButtonModule
 ];
 
 @NgModule({

@@ -1,8 +1,13 @@
 <section class="lunch-menu" *ngIf="hasMenu()">
-    <lunch-dish-group *ngFor="let dishGroup of menu.dishGroup"
-                      [dishGroup]="dishGroup"
+    <h2>{{dayFriendlyName}}</h2>
+    <ng-template ngFor let-dishGroup [ngForOf]="menu.dishGroup">
+        <!-- <section class="clearfix"> -->
+            <lunch-dish-group [dishGroup]="dishGroup"
                       [order]="getDishGroupOrder(dishGroup.name)"
                       (orderDishGroupPlaced)="onOrderDishGroupPlaced($event)"
                       (orderDishGroupRemoved)="onOrderDishGroupRemoved($event)">
-    </lunch-dish-group>
+            </lunch-dish-group>
+        <!-- </section> -->
+    </ng-template>
+    
 </section><!-- /.lunch-menu -->

@@ -2,10 +2,18 @@
     <section class="menu menu--head container--content">
         <ul class="clearfix menu__list">
             <li class="menu__item">
-                <a href class="menu__item_link" [routerLink]="'/all-users-order/current'">All Users Daily Order</a>
+                <button md-button
+                        class="menu__item_link"
+                        [routerLink]="'/all-users-order/current'">
+                        All Users Daily Order
+                </button>
             </li>
             <li class="menu__item">
-                <a href class="menu__item_link" [routerLink]="'/all-users-order/next'">For Caterer</a>
+                <button md-button
+                        class="menu__item_link"
+                        [routerLink]="'/all-users-order/next'">
+                        For Caterer
+                </button>
             </li>
             <li class="menu__item menu__item--right">
                 <user-widget></user-widget>

@@ -58,4 +58,4 @@ const AdditionalMeal: LunchDishGroupMock = new LunchDishGroupMock('AdditionalMea
 
 const dishGroupList = [SoupMock, SideDish, Meat, Salad, AdditionalMeal];
 
-export const lunchMenuMock = new LunchMenuMock('Lviv Lunches Menu', 1, dishGroupList);
+export const lunchMenuMock = (menuName: string) => new LunchMenuMock(menuName, 1, dishGroupList);

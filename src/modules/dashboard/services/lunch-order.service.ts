@@ -96,6 +96,15 @@ export class LunchOrderService implements ILunchOrderService {
         }
     }
 
+    public removeOrderDishGroup(orderDishGroupList: OrderDishGroupModel[],
+                             orderDishGroup: OrderDishGroupModel): OrderDishGroupModel[] {
+        if (this.isOrderLunchContainOrderGroup(orderDishGroupList, orderDishGroup)) {
+            return orderDishGroupList.filter((o: OrderDishGroupModel) => o.name !== orderDishGroup.name);
+        } else {
+            return orderDishGroupList;
+        }
+    }
+
     private isOrderLunchContainOrderGroup(orderDishGroupList: OrderDishGroupModel[],
                                           orderGroup: OrderDishGroupModel): boolean {
         return orderDishGroupList

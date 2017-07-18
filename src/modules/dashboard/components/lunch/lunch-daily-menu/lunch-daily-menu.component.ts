@@ -1,6 +1,8 @@
 import {
     Component, OnDestroy,
-    OnInit
+    OnInit,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,10 +35,11 @@ import { lunchMenuMock } from '../../../../../mocks/dashboard/lunchMenuMock';
 })
 export class LunchMenuComponent implements OnInit, OnDestroy {
     private lunchDay: ILunchDay;
-    private menu: ILunchDailyMenu = lunchMenuMock;
+    private dayFriendlyName: string;
+    private menu: ILunchDailyMenu;
     private orderDailyLunch: IOrderDailyLunch;
     private orderDishGroupRequest: OrderLunchDayModel;
-    private orderDishGroupList: OrderDishGroupModel[];
+    private orderDishGroupList: OrderDishGroupModel[] = [];
 
     private getMenuSubscription: Subscription;
     private getOrderSubscription: Subscription;
@@ -50,9 +53,13 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        console.log('LunchMenuComponent inited');
         this.activatedRoute.params
             .map(params => params.day)
             .subscribe((lunchDayName: string) => {
+                console.log('LunchMenuComponent day changed'); 
+                this.dayFriendlyName = lunchDayName;
+                setTimeout(() => { console.log('lunchMenuMock changed'); this.menu = lunchMenuMock(`try ${Math.random()}`); }, 1000)
                 this.getDayInfo(lunchDayName);
             });
 
@@ -61,6 +68,7 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        console.log('LunchMenuComponent ngOnDestroy');
         this.getMenuSubscription.unsubscribe();
         this.getDaysListSubscription.unsubscribe();
         this.getOrderSubscription.unsubscribe();
@@ -71,14 +79,16 @@ export class LunchMenuComponent implements OnInit, OnDestroy {
     }
 
     public onOrderDishGroupPlaced(orderDishGroup: OrderDishGroupModel): void {
+        orderDishGroup.date = `${new Date()}`;   
         this.orderDishGroupRequest.dishGroup = orderDishGroup;
         this.orderDishGroupList = this.lunchOrderService.addOrderDishGroup(this.orderDishGroupList, orderDishGroup);
         this.placeOrder();
     }
 
     public onOrderDishGroupRemoved(orderDishGroup: OrderDishGroupModel): void {
+        orderDishGroup.date = `${new Date()}`;           
         this.orderDishGroupRequest.dishGroup = orderDishGroup;
-        this.orderDishGroupList = this.lunchOrderService.addOrderDishGroup(this.orderDishGroupList, orderDishGroup);
+        this.orderDishGroupList = this.lunchOrderService.removeOrderDishGroup(this.orderDishGroupList, orderDishGroup);
         this.removeOrder();
     }
 

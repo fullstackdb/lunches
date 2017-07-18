@@ -10,7 +10,7 @@ import {
 } from '../../../models/index';
 import { lunchDayListResponse } from '../../../../../mocks/dashboard/lunchDayResponse';
 import { LunchOrderService } from '../../../services/lunch-order.service';
-import { OrderDishGroupModel, IOrderDailyLunch } from '../../../models/index';
+import { OrderDishGroupModel, OrderLunchDayModel, IOrderDailyLunch } from '../../../models/index';
 
 @Component({
     selector: 'days-table',
@@ -26,7 +26,7 @@ export class DaysTableComponent implements OnInit, OnDestroy {
     private orderSubscription: Subscription;
     private requestedDishesSubscription: Subscription;
     private currentOrder: IOrderDailyLunch;
-    private requestedDishes: any;
+    private requestedDishes: OrderDishGroupModel[];
 
     constructor(private lunchDaysService: LunchDaysService,
                 private lunchOrderService: LunchOrderService) {
@@ -45,6 +45,7 @@ export class DaysTableComponent implements OnInit, OnDestroy {
             });
         this.requestedDishesSubscription = this.lunchOrderService.RequestedDishes$
             .subscribe((requestedDishes: OrderDishGroupModel[]) => {
+                console.log('requestedDishes', requestedDishes);
                 this.requestedDishes = requestedDishes;
             });
     }
@@ -54,4 +55,17 @@ export class DaysTableComponent implements OnInit, OnDestroy {
         this.orderSubscription.unsubscribe();
         this.requestedDishesSubscription.unsubscribe();
     }
+
+    public getCurrentDishesByDate(date: string): OrderDishGroupModel {
+        if(this.currentOrder) {
+            return this.currentOrder.orderDay.dishGroup.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.date ===  date)[0];
+        }
+    }
+
+    public getRequestedDishesByDate(date: string): OrderDishGroupModel[] {
+        if(this.requestedDishes && date === 'Monday') {
+            return this.requestedDishes;
+            // return this.requestedDishes.filter((orderDishGroup: OrderDishGroupModel) => orderDishGroup.date ===  date);
+        }
+    } 
 }

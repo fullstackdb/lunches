@@ -1,82 +1,26 @@
-<section class="lunch-dish-group"
-         *ngIf="hasDishes()">
-    <form>
-        <div style="display: inline-block; padding: 5px;">
+<ng-template [ngIf]="hasDishes()">
+    <section class="clearfix lunch-dish-group">
+        <section class="lunch-dish-group__name">
             <!--<md-icon *ngIf="selectedDish"-->
-                     <!--style="position: relative; top: 5px;">done_all</md-icon>-->
+                    <!--style="position: relative; top: 5px;">done_all</md-icon>-->
             {{dishGroup.name}}
-        </div>
-        <md-select [placeholder]="selectedDish ? 'Chosen food' : 'Choose food' "
-                   [name]="'food'"
-                   [(ngModel)]="selectedDish">
-            <md-option *ngFor="let dish of dishGroup.dishes"
-                       [value]="dish.name"
-                       (click)="onDishChanged(dish.name)">
-                {{dish.name}}
-            </md-option>
-        </md-select>
-        <button md-button
-                *ngIf="selectedDish"
-                (click)="cleanSelected()">
-            <!--<md-icon>close</md-icon>-->
-            Clean
-        </button>
-    </form>
-    <!--<md-grid-list cols="10"-->
-                  <!--rowHeight="50px"-->
-                  <!--(click)="showGroupDishes()"-->
-                  <!--class="lunch-dish-group__manage">-->
-        <!--<md-grid-tile class="lunch-dish-group__icons">-->
-            <!--<md-icon *ngIf="isGroupDishesVisible">expand_less</md-icon>-->
-            <!--<md-icon *ngIf="!isGroupDishesVisible">expand_more</md-icon>-->
-        <!--</md-grid-tile>&lt;!&ndash; /.lunch-dish-group__icons &ndash;&gt;-->
-        <!--<md-grid-tile class="lunch-dish-group__name">-->
-            <!--{{dishGroup.name}}-->
-        <!--</md-grid-tile>&lt;!&ndash; /.lunch-dish-group__name &ndash;&gt;-->
-        <!--<ng-template [ngIf]="hasGroupDishesOrder()">-->
-            <!--<md-grid-tile class="lunch-dish-group__order" *ngIf="order.dish">-->
-                <!--{{order.dish.name}}-->
-            <!--</md-grid-tile>&lt;!&ndash; /.lunch-dish-group__name &ndash;&gt;-->
-        <!--</ng-template>-->
-
-    <!--</md-grid-list>-->
-    <!--<md-grid-list cols="3"-->
-                  <!--rowHeight="300px"-->
-                  <!--*ngIf="isGroupDishesVisible">-->
-        <!--<md-grid-tile *ngFor="let dish of dishGroup.dishes">-->
-            <!--<lunch-dish [dish]="dish"-->
-                        <!--[isDemandFulfilled]="isDemandFulfilled()"-->
-                        <!--[isActive]="isDishActive(dish.name)"-->
-                        <!--(orderDishPlaced)="onOrderDishPlaced($event)"-->
-                        <!--(orderDishRemoved)="onOrderDishRemoved($event)">-->
-            <!--</lunch-dish>-->
-        <!--</md-grid-tile>-->
-    <!--</md-grid-list>-->
-
-    <!--<div class="lunch-dish-group__manage menu menu&#45;&#45;head"-->
-         <!--(click)="showGroupDishes()">-->
-        <!--<ul class="clearfix menu__list">-->
-            <!--<li class="lunch-dish-group__icons menu__item">-->
-                <!--<md-icon *ngIf="isGroupDishesVisible">expand_less</md-icon>-->
-                <!--<md-icon *ngIf="!isGroupDishesVisible">expand_more</md-icon>-->
-            <!--</li>-->
-            <!--<li class="lunch-dish-group__name menu__item">-->
-                <!--{{dishGroup.name}}-->
-            <!--</li>-->
-            <!--<ng-template [ngIf]="hasGroupDishesOrder()">-->
-                <!--<li class="lunch-dish-group__order menu__item menu__item&#45;&#45;right">-->
-                    <!--{{order.dish.name}}-->
-                <!--</li>-->
-            <!--</ng-template>-->
-        <!--</ul>-->
-    <!--</div>-->
-    <!--<div *ngIf="isGroupDishesVisible"-->
-         <!--class="lunch-dish-group__body" >-->
-        <!--<lunch-dish [dish]="dish"-->
-                    <!--[isDemandFulfilled]="isDemandFulfilled()"-->
-                    <!--[isActive]="isDishActive(dish.name)"-->
-                    <!--(orderDishPlaced)="onOrderDishPlaced($event)"-->
-                    <!--(orderDishRemoved)="onOrderDishRemoved($event)">-->
-        <!--</lunch-dish>-->
-    <!--</div>-->
-</section><!-- /.lunch-dish-group -->
+        </section>
+        <section class="lunch-dish-group__dishes">
+            <md-select [placeholder]="selectedDish ? 'Chosen food' : 'Choose food' "
+                    [name]="'food'"
+                    [(ngModel)]="selectedDish">
+                <md-option *ngFor="let dish of dishGroup.dishes"
+                        [value]="dish.name"
+                        (click)="onDishChanged(dish.name)">
+                    {{dish.name}}
+                </md-option>
+            </md-select>
+            <button md-button
+                    *ngIf="selectedDish"
+                    (click)="cleanSelected()">
+                <md-icon>close</md-icon>
+                Clean
+            </button>
+        </section>
+    </section><!-- /.lunch-dish-group -->
+</ng-template>

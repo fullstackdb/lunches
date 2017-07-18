@@ -25,6 +25,23 @@
   &__date {
     font-size: 0.7em;
   }
+  &__icons {
+    display: inline-block;
+    float: right;
+
+    &--soupmock {
+      color: red;
+    }
+    &--sidedish {
+      color: gold;
+    }
+    &--meat {
+      color: brown;
+    }
+    &--salad {
+      color: greenyellow;
+    }
+  }
   //&__monday {
   //  background: #FFA726;
   //}

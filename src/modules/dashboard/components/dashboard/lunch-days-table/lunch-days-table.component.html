@@ -2,6 +2,8 @@
     class="ln-nav ln-nav--vertical ln-nav--clear ln-nav--white lunch-days-list">
     <lunch-day *ngFor="let day of daysList"
         [day]="day"
+        [currentOrder]="getCurrentDishesByDate(day.date)"
+        [requestedDishes]="getRequestedDishesByDate(day.dayFriendlyName)"
         [routerLink]="['./' + day.dayFriendlyName.toLowerCase()]"
         routerLinkActive="ln-nav__item--active">
     </lunch-day>
