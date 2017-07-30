@@ -31,8 +31,8 @@ export class ApiLunchMenuService {
                 protected http: Http) {
     }
 
-    public getMenu(userTokenId: string): Observable<ILunchWeekMenu> {
-        return this.http.post(`http://185.22.232.203/menu/current`, {tokenId: userTokenId})
+    public getMenu(userTokenId: string, url = `http://185.22.232.203/menu/current`): Observable<ILunchWeekMenu> {
+        return this.http.post(url, {tokenId: userTokenId})
             .map(ApiLunchMenuService.extractData)
             .catch(ApiLunchMenuService.handleError);
     }
